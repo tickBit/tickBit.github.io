@@ -1,4 +1,4 @@
-## tickBit home at GitHub
+## tickBit's home at GitHub
 
 Hopefully this will soon be some kind of home page...
 
