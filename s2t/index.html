@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <title>Puhe</title>
+    <style>
+      
+      .activate {
+        background-color: rgba(112, 148, 245, 0.25);
+        margin: auto;
+        text-align: center;
+        padding: 2em;
+        width: 8em;
+        height: 4em;
+        transition: 0.2s;
+        margin-bottom: 2em;
+        animation: blinker 1s linear infinite;
+        animation-play-state: paused;
+      }
+
+
+      @keyframes blinker {
+        50% {
+        background-color: rgb(152, 152, 252);
+        }
+      }
+
+      .activate:hover {
+        box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+      }
+      .puhe {
+        background-color: rgba(245, 225, 112, 0.25);
+        margin: auto;
+        text-align: center;
+        padding: 2em;
+        width: 8em;
+        height: 5em;
+
+      }
+      #voice2text {       
+        margin: auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="activate">
+        <p id="pactivate">Activate voice</p>
+    </div>
+        
+    <div class="puhe">
+      <P>Sanoit / You said:</P>
+      <p id="voice2text"></p>
+    </div>
+
+    <script>
+
+const voice = document.getElementsByClassName("activate")[0];
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recorder = new SpeechRecognition();
+
+
+function computerVoice(message) {
+    const speech = new SpeechSynthesisUtterance();
+    speech.text = message;
+    speech.volume = 1;
+    speech.rate = 0.75;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+    let element = document.getElementById("voice2text");
+    element.textContent = speech.text;
+    let el = document.getElementById("pactivate");
+    el.textContent = "Activate voice again";
+    document.getElementsByClassName("activate")[0].style.animationPlayState = "running";
+}
+
+recorder.onresult = (event) => {
+  const resultIndex = event.resultIndex;
+  const transcript = event.results[resultIndex][0].transcript;
+  computerVoice(transcript);
+};
+
+recorder.onstart = () => {
+  document.getElementsByClassName("activate")[0].style.animationPlayState = "paused";
+ 
+};
+
+voice.addEventListener('click', () =>{
+  recorder.start();
+});
+
+voice.addEventListener('click', () =>{
+  try {
+  recorder.start();
+  let el = document.getElementById("pactivate");
+  el.textContent = "Sano jotain / Say something"
+  } catch (e) {
+    console.log("virhe");
+  }
+});
+
+   
+    </script>
+  </body>
+</html>
