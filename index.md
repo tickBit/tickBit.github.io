@@ -2,7 +2,7 @@
 
 Hopefully this will soon be some kind of home page...
 
-[Link](https://github.com/tickBit/tickBit.github.io/edit/main/texttospeech.html)
+[Link](https://tickBit.github.io/s2t)
 
 You can use the [editor on GitHub](https://github.com/tickBit/tickBit.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
 
