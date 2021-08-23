@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="StyleSheet" href="tyylit.css" type="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+<title>Unlimited amount of objects :-)</title>
+</head>
+<script>
+var canvakset = [];
+var CTXs = [];
+var kulma = -Math.PI / 2;
+var ctx = undefined;
+var r = 1.0;
+var laskuri = 0;
+var gradients = [];
+
+
+	
+window.onload = function() {
+    let canvas = document.getElementById("canvas");
+    canvas.setAttribute("width",document.documentElement.clientWidth);
+    canvas.setAttribute("height",document.documentElement.clientHeight);
+    ctx = canvas.getContext("2d");
+    let backCanvas = document.createElement('canvas');
+    backCanvas.width = canvas.width;
+    backCanvas.height = canvas.height;
+    for (let i = 0; i < 16; i++) {
+        let kopio = backCanvas.cloneNode();
+        canvakset.push(kopio);
+        let context = kopio.getContext("2d");
+		CTXs.push(context);
+    }
+	
+
+    window.requestAnimationFrame(unlimited_objects);
+}
+
+function unlimited_objects() {
+    ctx.clearRect(0,0,document.documentElement.clientWidth,document.documentElement.clientHeight);
+	
+	let gradient = CTXs[laskuri].createRadialGradient(Math.cos(kulma) * (40 + r) + canvas.width / 2 + 20, Math.sin(kulma) * (40 + r) + canvas.height / 2 + 20, 5, Math.cos(kulma) * (40 + r)+ canvas.width / 2 + 20, Math.sin(kulma) * (40 + r) + canvas.height / 2 + 20, 20);
+
+	gradient.addColorStop(0, 'pink');
+	gradient.addColorStop(.9, 'white');
+	gradient.addColorStop(1, 'blue');
+		
+	CTXs[laskuri].fillStyle = gradient;
+    CTXs[laskuri].fillRect(Math.cos(kulma) * (40 + r) + canvas.width / 2, Math.sin(kulma) * (40 + r) + canvas.height / 2, 40, 40);
+    ctx.drawImage(canvakset[laskuri], 0,0);   
+    r += 0.1;
+    kulma += (Math.PI / 180);
+    laskuri++;
+    if (laskuri == 16) {
+        laskuri = 0;
+    }
+    window.requestAnimationFrame(unlimited_objects);
+
+}
+</script>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
