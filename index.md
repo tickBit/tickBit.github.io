@@ -4,6 +4,6 @@ Hopefully this will soon be some kind of home page...
 
 ## Some Javascript experiments
 
-- [Text to speech experiment](https://tickBit.github.io/s2t)
+- [Speech to text experiment](https://tickBit.github.io/s2t)
 - [Rotating scroll](https://tickBit.github.io/scroll)
 - [Unlimited objects](https://tickBit.github.io/unlimited)
