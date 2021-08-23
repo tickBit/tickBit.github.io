@@ -2,7 +2,10 @@
 
 Hopefully this will soon be some kind of home page...
 
-[Link](https://tickBit.github.io/s2t)
+# Some Javascript experiments
+
+- [Text to speech experiment](https://tickBit.github.io/s2t)
+- [Rotating scroll](https://tickBit.github.io/scroll)
 
 You can use the [editor on GitHub](https://github.com/tickBit/tickBit.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
 
