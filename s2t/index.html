@@ -10,7 +10,7 @@
         margin: auto;
         text-align: center;
         padding: 2em;
-        width: 8em;
+        width: 9em;
         height: 4em;
         transition: 0.2s;
         margin-bottom: 2em;
@@ -44,6 +44,8 @@
     </style>
   </head>
   <body>
+    <h1>Speech to text</h1>
+    <p>Tested to work in Windows with Chrome and Edge at least...</p>
     <div class="activate">
         <p id="pactivate">Activate voice</p>
     </div>
@@ -85,17 +87,21 @@ recorder.onstart = () => {
  
 };
 
-voice.addEventListener('click', () =>{
+voice.addEventListener('click', () => {
+  
   recorder.start();
 });
 
 voice.addEventListener('click', () =>{
+  document.getElementById("voice2text").textContent = "";
+  
   try {
-  recorder.start();
-  let el = document.getElementById("pactivate");
-  el.textContent = "Sano jotain / Say something"
+    recorder.start();
+    
+    let el = document.getElementById("pactivate");
+    el.textContent = "Sano jotain / Say something"
   } catch (e) {
-    console.log("virhe");
+    console.log("virhe / error");
   }
 });
 
