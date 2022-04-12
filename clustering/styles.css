@@ -1,0 +1,35 @@
+#hd {
+    text-align: center;
+}
+
+#lblpo {
+    text-align: top;
+}
+
+#points {
+    text-align: top;
+    width: 4.5em;
+    height: 1em;
+}
+
+#lblk {
+    text-align: top;
+}
+
+#kvalue {
+    text-align: top;
+    width: 2.5em;
+    height: 1em;
+}
+#canvas {
+    position: absolute;
+    left: 12%;
+}
+
+#btncl {
+    margin-top: 2em;
+}
+#info {
+    position: absolute;
+    width: 11%;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clustering</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<script src="clustering.js"></script>
+</head>
+
+<body>
+    <h1 id="hd">KMeans clustering in JavaScript</h1>
+
+<div id="info">
+<label for=points" id="lblpo">Number of points</label><br><input type="number" id="points" oninput="if(value.length>4)value=value.slice(0,4)">
+<br>
+<label for="kvalue" id="lblk">Number of clusters</label><br><input type="number" id="kvalue" min="1" max="8"onKeyUp="if(this.value>this.max)this.value=this.max;if(this.value<this.min)this.value=this.min;"/>
+<br>
+<p id="iter">Iterations:</p>
+<br>
+
+<button id="btncl">Cluster!</button>
+<p>
+The min <i>k</i> value is 1 and the max is 8. The min number of points is 0 and the max is 9999.
+</p>
+</div>
+<div id="draw">
+<canvas width="800" height="600" id="canvas"></canvas>
+</div>
+</body>
+</html>
