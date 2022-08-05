@@ -9,6 +9,9 @@ body {
 
 }
 
+#canvas {
+    z-index: -1;
+}
 
 #rect { fill: url(#Gradient); left: 0; }
         .stop1 { stop-color: black; }
@@ -19,7 +22,7 @@ body {
 
 .hbar {
         position: absolute;
-        z-index: -1;
+        z-index: -2;
         
         animation-delay: 2s;
         animation-duration: 4s;
@@ -42,6 +45,49 @@ body {
 
 }
 
+/* CSS */
+.bee {
+        position: absolute;
+        z-index: -1;
+
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        animation-name: beeAnimation;
+
+}
+
+/* animaatioframet */
+@keyframes beeAnimation {
+
+        0% {
+                left: 0%;
+                top: 0%;
+        }
+
+        25% {
+        left: calc(100% - 640px);
+        top: 0;        
+        }
+
+        50% {
+        left: calc(100% - 640px);
+        top: calc(100% - 500px);
+        } 
+
+        75%{
+        top: calc(100% - 500px);
+        left: 0%;
+        }
+
+        100% {
+        top: 0%;
+        left: 0%;
+        }
+}
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="utf-8"/>
@@ -61,6 +107,7 @@ const nr_of_bars = 20;
 const SCROLLITEKSTI = "                                    Olen luonnontieteiden kandidaatti -nobody... Tässä hieman old skool -meinikiä...                                   ";
 
 window.onload = function() {
+
 
     let canvas = document.getElementById("canvas");
     canvas.setAttribute("width",document.documentElement.clientWidth);
@@ -179,5 +226,6 @@ function rotate_text() {
 </script>
 <body>
 <canvas id="canvas"></canvas>
+<object class="bee" id="bee" type="image/svg+xml" data="bee640.png" ></object>
 </body>
 </html>
