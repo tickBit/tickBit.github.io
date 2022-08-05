@@ -6,6 +6,7 @@
 #text {
     text-align: right;
 }
+
 .grid-container {
     vertical-align: top;
     display: grid;
@@ -27,9 +28,6 @@
     grid-template-columns: repeat(2, 100%);
 
 }
-
-
-
 
 #empty {
     visibility: hidden;
