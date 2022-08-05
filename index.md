@@ -8,3 +8,4 @@ Hopefully this will soon be some kind of home page...
 - [Rotating scroll](https://tickBit.github.io/scroll)
 - [Unlimited objects](https://tickBit.github.io/unlimited)
 - [KMeans clustering](https://tickBit.github.io/clustering)
+- [Simple Poly Plotter](https://tickBit.github.io/polyplotter)

@@ -1,0 +1,151 @@
+#canvases {
+    float: inline-start;
+    padding-right: 2em;
+}
+
+#text {
+    text-align: right;
+}
+.grid-container {
+    vertical-align: top;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(2em, auto);
+}
+
+.grid-item1 {
+    grid-row: 1;
+    display: grid;
+    
+}
+
+.grid-item2 {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 100%);
+
+}
+
+
+
+
+#empty {
+    visibility: hidden;
+    margin-left: 2em;
+    color: red;
+}
+.item {
+    padding-left: 2em;
+}
+
+#clr {
+    margin-left: 4em;
+}
+
+#constant {
+    text-align: right;
+    vertical-align: top;
+}
+
+#lconstant {
+    margin-left: 10em;
+}
+
+#const {
+    margin-left: 2em;
+}
+
+#polynomial {
+    margin-left: 16em;
+}
+
+#polyn {
+    margin-left: 4em;
+}
+
+#newp {
+    margin-left: 22em;
+}
+#add2 {
+    margin-left: 12em;
+}
+
+#plot {
+    padding: 1em;
+    margin-left: 4em;
+}
+
+#power {
+    margin-left: 1em;
+    font-size: 12px;
+    vertical-align: top;
+}
+
+#termi {
+    font-size: 48px;
+    font-style: italic;
+    vertical-align: top;
+}
+
+#polyn {
+    font-size: 48px;
+    vertical-align: baseline;
+    padding-left: 2em;
+}
+
+#const {
+    font-size: 48px;
+    font-style: normal;
+    vertical-align: baseline;
+}
+
+#numerator {
+    vertical-align: bottom;
+}
+
+#denominator {
+    vertical-align: text-bottom;
+}
+
+#pcanvas {
+    vertical-align: top;
+}
+.slidecontainer {
+    width: 25%;
+}
+
+
+.slider {
+-webkit-appearance: none;  
+appearance: none;
+width: 80%; 
+height: 20px; 
+background: #d3d3d3; 
+outline: none; 
+opacity: 0.7; 
+-webkit-transition: .2s; 
+transition: opacity .2s;
+}
+
+
+.slider:hover {
+opacity: 1; /* Fully shown on mouse-over */
+}
+
+
+.slider::-webkit-slider-thumb {
+-webkit-appearance: none; 
+appearance: none;
+width: 20px; 
+height: 20px; 
+background: #2d1c69; 
+cursor: pointer; 
+}
+
+.slider::-moz-range-thumb {
+width: 20px; 
+height: 20px; 
+background: #0d022a; 
+cursor: pointer; 
+}

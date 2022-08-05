@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<link rel="StyleSheet" href="style.css" type="text/css" />
+<script src="polyplotter.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8"/>
+<title>Simple Poly Plotter</title>
+</head>
+<body>
+
+<div id="canvases">
+    <p>
+        <canvas width="500" height="500" id="canvas"></canvas>
+    </p>
+    <p> 
+        <canvas width="400" height="500" id="pcanvas"></canvas>
+    </p>
+</div>
+
+<div class="grid-container">
+
+    <div class="grid-item1">
+        <h1>Simple Poly Plotter v0.5</h1>
+        <p>
+            The user interface may be confusing, I'm working on it... Hopefully that little gif-animation gives you an idea, how to use this. And the HTML and CSS code are terrible, working on those, too.. :)
+        </p>
+    </div>
+
+    <div class="grid-item2">
+        <div class="item">
+        <p id="srange">Scale: <span id="scale"></span></p>
+        <input type="range" min="100" max="1000" value="500" class="slider" id="slider" />
+        </div>
+        <div class="item">
+            <p id="limits">Limits: <span id="limit"></span></p>
+            <input type="range" min="1" max="14" value="4" class="slider" id="slider2" />
+        </div>    
+    </div>
+</div>
+    <div class="container">
+    <label>Term:</label><label id="lconstant">Constant:</label><label id="polynomial">Function number:</label><label id="empty">The current function is empty</label>
+    <div id="term"><div id="constant"></div><div id="polynr"></div></div>
+    <button id="add">Add</button><button id="add2">Add</button><button id="newp">New function</button><button id="plot">Plot</button><button id="clr">Clear all</button>
+<p>
+    <img src = "pp-demo.gif"></img>
+</p>
+</div>
+
+
+</body>
+</html>
