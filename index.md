@@ -10,5 +10,3 @@ Hopefully this will soon be some kind of home page...
 - [KMeans clustering](https://tickBit.github.io/clustering)
 - [Simple Poly Plotter](https://tickBit.github.io/polyplotter)
 - [C64 Sprite Editor](https://tickBit.github.io/c64spriteeditor)
-
-I will probably develop the C64 sprite editor further..
