@@ -1,0 +1,12 @@
+#editCanvas {
+    float: left
+}
+
+#spriteCanvas {
+    padding-left: 2em;
+    vertical-align: top;
+}
+
+#buttonarea {
+    padding-bottom: 1.5em;
+}
