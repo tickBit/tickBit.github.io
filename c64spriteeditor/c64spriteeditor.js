@@ -71,6 +71,9 @@ function drawSprite() {
             if (board[x+y*24] == 1) {
                 ctx2.fillStyle = "#cc1199";
                 ctx2.fillRect(x * 4, y * 4, 4, 4);
+            } else {
+                ctx2.fillStyle = "#FFFFFF";
+                ctx2.fillRect(x * 4, y * 4, 4, 4);
             }
         }
     }
