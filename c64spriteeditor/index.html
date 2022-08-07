@@ -9,10 +9,11 @@
 
 <body>
 <H1>Commodore 64 sprite editor v0.2</H1>
-<p>This version can only handle single color sprites.</p>
+<p>This version can only handle single color sprites. Generating the C code is for CC65 compiler.</p>
 <div id="buttonarea">
     <button id="ba" onclick="clearBoard()">Clear editor</button>
-    <button id="sb" onclick="saveSprite1()">Generate Sprite as Basic data statements</button>
+    <button id="sb" onclick="saveSprite1()">Generate sprite as Basic data statements</button>
+    <button id="sc" onclick="saveSprite2()">Generate sprite as C code</button>
     <div id="savesprite">
     </div>
 </div>
