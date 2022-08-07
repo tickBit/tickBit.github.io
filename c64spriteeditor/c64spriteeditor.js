@@ -140,7 +140,7 @@ function saveSprite1() {
 
 function saveSprite2() {
 
-    let data = "int spriteData[63] ={";
+    let data = "unsigned char spriteData[63] ={";
     let byte = 0;
     let counter = 0;
     let char = 0;
