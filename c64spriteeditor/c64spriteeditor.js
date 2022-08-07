@@ -184,3 +184,50 @@ function saveSprite2() {
     
 
 }
+
+function saveSprite3() {
+
+    let datas = [];
+    let data = ".byte   ";
+    let byte = 0;
+    let counter = 0;
+    let char = 0;
+
+    for (let b = 0; b < 504; b++) {
+        if (board[b] == 1) { 
+            byte = byte | (Math.pow(2, 7-counter));
+        }
+        counter += 1;
+        if (counter % 8 == 0) {
+            // byte as hexadecimal
+            data += "$"+("0"+byte.toString(16)).slice(-2);
+            datas.push(data);
+            
+            data = ".byte   ";
+            byte = 0;
+            counter = 0;
+        }
+    }
+
+    let saveSprite = document.getElementById("savesprite");
+ 
+    while (saveSprite.firstChild) {
+        saveSprite.removeChild(saveSprite.firstChild);
+    }
+
+    let link = document.createElement("a");
+    link.addEventListener("click", function() {
+        saveSprite.removeChild(link);
+    });
+
+    
+
+    link.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(datas.join("\n")));
+    link.setAttribute("download", "sprite.txt");
+    let text = document.createTextNode("Download");
+    link.appendChild(text);
+    saveSprite.appendChild(link);
+    
+
+}
+
