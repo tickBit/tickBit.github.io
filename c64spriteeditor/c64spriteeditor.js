@@ -60,6 +60,13 @@ function drawBoard() {
 }
 
 function clearBoard() {
+    
+    let sprName = document.getElementById("ls");
+    while (sprName != null) {
+        sprName.remove(sprName);
+    }
+    
+
     for (let i = 0; i < 504; i++) {
         board[i] = 0;
     }
@@ -80,6 +87,7 @@ function drawSprite() {
 }
 
 function clearBoard() {
+
     for (let i = 0; i < 504; i++) {
         board[i] = 0;
     }
@@ -231,3 +239,96 @@ function saveSprite3() {
 
 }
 
+// https://stackoverflow.com/questions/14446447/how-to-read-a-local-text-file-in-the-browser
+function openFile (event) { 
+
+        let input = event.target;        
+        let reader = new FileReader();
+        let content = "";
+        reader.onload = function() {
+            content = reader.result;
+            clearBoard();
+
+            // read sprite data from basic data statements
+            if (content.includes("data")) {
+                let lines = content.split("\n");
+                let line = ""
+                let datas = [];
+                let data = 0;
+                let char = 0;
+                for (let i = 0; i < lines.length; i++) {
+                    line = lines[i];
+                    datas = line.split(" ");
+                
+                    for (let j = 0; j < datas.slice(-3).length; j++) {
+                        data = parseInt(datas.slice(-3)[j]);
+                        for (let k = 0; k < 8; k++) {
+                            if (data & (Math.pow(2, 7-k))) {
+                                board[char] = 1;
+                            }
+                            char++;
+                        }
+                    }
+                    
+                }
+                drawBoard();
+                drawSprite();
+            }
+ 
+            // Read sprite data from C code
+            if (content.includes("unsigned char")) {
+                let datas = content.split(" ");
+                datas = datas.splice(-63);
+                let data = 0;
+                let char = 0;
+                for (let i = 0; i < datas.length; i++) {
+                    data = datas[i];
+                    data = data.replace("{","");
+                    data = data.replace("}","");
+                    data = data.replace(",","");
+                    data = data.replace("=","");
+                    data = data.replace(";","");
+                    data = parseInt(data);
+                    
+                    for (let j = 0; j < 8; j++) {
+                        if (data & (Math.pow(2, 7-j))) {
+                            board[char] = 1;
+                        }
+                        char++;
+                    }
+                }
+                drawBoard();
+                drawSprite();
+            }
+
+            // Read sprite data from assembly code
+            if (content.includes(".byte")) {
+                let lines = content.split("\n");
+                let line = ""
+                let datas = [];
+                let data = 0;
+                let char = 0;
+                for (let i = 0; i < lines.length; i++) {
+                    line = lines[i];
+                    datas = line.split("$");
+                    
+                    for (let j = 0; j < datas.slice(-1).length; j++) {
+                        data = parseInt(datas.slice(-1), 16);
+                        for (let k = 0; k < 8; k++) {
+                            if (data & (Math.pow(2, 7-k))) {
+                                board[char] = 1;
+                            }
+                            char++;
+                        }
+                    }
+                    
+                }
+                drawBoard();
+                drawSprite();
+            }
+        };
+        reader.readAsText(input.files[0]);
+        
+    }
+
+    

@@ -8,16 +8,18 @@
 </head>
 
 <body>
-<H1>Commodore 64 sprite editor v0.2</H1>
+<H1>Commodore 64 sprite editor v0.5</H1>
 <p>This version can only handle single color sprites. Generating the C code is for CC65 compiler.</p>
 <div id="buttonarea">
     <button id="ba" onclick="clearBoard()">Clear editor</button>
     <button id="sb" onclick="saveSprite1()">Generate sprite as Basic data statements</button>
     <button id="sc" onclick="saveSprite2()">Generate sprite as C code</button>
     <button id="sa" onclick="saveSprite3()">Generate sprite as assembly code</button>
+    <input id="ls" type="file" accept='text/plain' onchange="openFile(event)"></input>
     <div id="savesprite">
     </div>
 </div>
+
 
 <div id="editor">
     <canvas id="editCanvas" width="768" height="672"></canvas>
