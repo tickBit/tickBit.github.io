@@ -13,7 +13,7 @@ window.onload = function() {
     canvas2 = document.getElementById("spriteCanvas");
     ctx2 = canvas2.getContext("2d");
 
-    clearBoard();
+    clearBoard(false);
 
     canvas1.addEventListener("mousedown", function (event) {
     
@@ -59,18 +59,6 @@ function drawBoard() {
     }
 }
 
-function clearBoard() {
-    
-    let sprName = document.getElementById("ls");
-    while (sprName != null) {
-        sprName.remove(sprName);
-    }
-    
-
-    for (let i = 0; i < 504; i++) {
-        board[i] = 0;
-    }
-}
 
 function drawSprite() {
     for (let y = 0; y < 21; y++) {
@@ -86,7 +74,9 @@ function drawSprite() {
     }
 }
 
-function clearBoard() {
+function clearBoard(justLoaded) {
+
+    if (justLoaded==false) document.getElementById("ls").value="";
 
     for (let i = 0; i < 504; i++) {
         board[i] = 0;
@@ -247,7 +237,7 @@ function openFile (event) {
         let content = "";
         reader.onload = function() {
             content = reader.result;
-            clearBoard();
+            clearBoard(true);
 
             // read sprite data from basic data statements
             if (content.includes("data")) {
@@ -330,5 +320,3 @@ function openFile (event) {
         reader.readAsText(input.files[0]);
         
     }
-
-    
