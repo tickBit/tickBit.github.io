@@ -1,5 +1,8 @@
 #colorSelection {
     display: none;
+    height: 100%;
+    text-align: top;
+    vertical-align: top;
 }
 
 #spriteColorMode {
@@ -8,12 +11,12 @@
 
 #spriteColor {
     width: 17%;
-    height: 2em;
+    height: 100%;
 }
 
 #colors {
     width: 6em;
-    height: 4em;
+    height: 100%;
 }
 
 
