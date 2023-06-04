@@ -8,13 +8,24 @@
 </head>
 
 <body>
-<H1>Commodore 64 sprite editor v0.5</H1>
-<p>This version can only handle single color sprites. Generating the C code is for CC65 compiler.</p>
+<H1>Commodore 64 sprite editor v0.8</H1>
+
+<div id="spriteColorMode">
+<fieldset id="spriteColor">
+    <legend>Select single color or multi color sprite</legend>
+    <input type="radio" id="single" name="mode" value="Singlecolor" checked><label for="Singlecolor">Single color</label>
+    <input type="radio" id="multi" name="mode" value="Multicolor"><label for="Multicolor">Multi color</label>
+</fieldset>
+<div id="info">
+If you want to load from a txt file multi color sprite, please select multi color sprite first, respectively single color sprite for single color sprite.
+</div>
+</div>
+
 <div id="buttonarea">
     <button id="ba" onclick="clearBoard(false)">Clear editor</button>
-    <button id="sb" onclick="saveSprite1()">Generate sprite as Basic data statements</button>
-    <button id="sc" onclick="saveSprite2()">Generate sprite as C code</button>
-    <button id="sa" onclick="saveSprite3()">Generate sprite as assembly code</button>
+    <button id="sb">Generate sprite as Basic data statements</button>
+    <button id="sc">Generate sprite as C code</button>
+    <button id="sa">Generate sprite as assembly code</button>
     <input id="ls" type="file" accept='text/plain' onchange="openFile(event)"></input>
     <div id="savesprite">
     </div>
@@ -23,6 +34,14 @@
 
 <div id="editor">
     <canvas id="editCanvas" width="768" height="672"></canvas>
+</div>
+<div id="colorSelection">
+<fieldset id="colors">
+    <legend>Select color</legend>
+    <div id="first"><input type="radio" id="color01" name="color" value="color01" checked><label for="color01">Color 01</label></div>
+    <div id="second"><input type="radio" id="color11" name="color" value="color11"><label for="color11">Color 11</label></div>
+    <div id="third"><input type="radio" id="color10" name="color" value="color10"><label for="color10">Color 10</label></div>
+</fieldset>
 </div>
 <div id="sprite">
     <canvas id="spriteCanvas" width="96" height="84"></canvas>

@@ -1,5 +1,25 @@
+#colorSelection {
+    display: none;
+}
+
+#spriteColorMode {
+    width: 100%;
+}
+
+#spriteColor {
+    width: 17%;
+    height: 2em;
+}
+
+#colors {
+    width: 6em;
+    height: 4em;
+}
+
+
 #editCanvas {
-    float: left
+    float: left;
+    padding-right: 1em;
 }
 
 #spriteCanvas {
@@ -8,5 +28,23 @@
 }
 
 #buttonarea {
-    padding-bottom: 1.5em;
+    padding-bottom: 0.5em;
+}
+
+#first {
+    color: #1e12d1;
+}
+
+#second {
+    color: #ff0000;
+}   
+
+#third {
+    color: #008000;
+}
+
+#info {
+    padding-left: 20em;
+    margin-top: -1em;
+    padding-bottom: 0.5em;
 }
