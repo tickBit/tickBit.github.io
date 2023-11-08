@@ -5,4 +5,4 @@ You need Node.js and Firebase environment to be installed with Firebase emulator
 
 PLEASE NOTICE, that the database rules in this Firebase emulation version are not the best possible for security!
 
-To view the source files. click the view on GitHub button.
+To view the source files. click the view on GitHub button or if you are already at DeVaja/exercise3 drawer, just browse the files.
