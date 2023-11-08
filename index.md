@@ -12,3 +12,5 @@ Hopefully this will soon be some kind of home page...
 - [C64 Sprite Editor](https://tickBit.github.io/c64spriteeditor)
 
 I will probably develop the C64 sprite editor further..
+
+- [My DeVaja exercises](https://tickBit.github.io/DeVaja)
