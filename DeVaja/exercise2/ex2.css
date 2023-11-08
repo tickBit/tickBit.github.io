@@ -1,0 +1,47 @@
+#questions {
+    display: none;
+    text-align: left;
+}
+
+.btn {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 1em;
+    padding: 0.5em;
+}
+
+#question {
+    text-align: left;
+}
+
+input {
+    vertical-align: middle;
+    margin: 0.5em;
+}
+
+#checkboxhtml {
+    margin: auto;
+    column-count: top;
+}
+
+#checkboxcss {
+    margin: auto;
+    column-count: top;
+}
+
+#checkboxjs {
+    margin: auto;
+    text-align: top;
+}
+
+.category {
+    margin: top;
+    padding-left: 7em;
+}
+
+.grid-container {
+    display: grid;
+    vertical-align: top;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+}
