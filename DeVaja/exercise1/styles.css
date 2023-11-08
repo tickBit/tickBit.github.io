@@ -1,0 +1,28 @@
+#birds-main {
+    background-color:azure;
+    margin: auto;
+    width: 55%;
+    height: 55%;
+    border-style: groove;
+    border-radius: 1em;
+    text-align: center;
+}
+
+#header {
+    text-align: center;
+}
+
+#birds-instructions {
+    text-align: justify;
+    width: 90%;
+    height: 95%;
+    margin: auto;
+}
+
+#bird-names {
+    background-color:aquamarine;
+    text-align: center;
+    width: 55%;
+    height: 25%;
+    margin: auto;
+}
