@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji editor</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="/__/firebase/10.4.0/firebase-app-compat.js"></script>
+  <script src="/__/firebase/10.4.0/firebase-auth-compat.js"></script>
+  <script src="/__/firebase/10.4.0/firebase-database-compat.js"></script>
+  <script src="/__/firebase/init.js?useEmulator=true"></script>
+  
+  <script src="app.js"></script>
+  
+</head>
+<body background="bg.jpg">
+
+    <div class="frontPage">
+      
+          <h2 id="title">Firebase Email &amp; Password Authentication for Emoji editor</h2>
+          <p id="exercise">This application is only an excercise.</p>
+
+          <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+
+          <input type="text" id="email" name="email" placeholder="Email"/>
+          
+          <input type="password" id="password" name="password" placeholder="Password"/>
+          <br/><br/>
+          <button class="btnSignIn" id="sign-in" name="signin">Sign In</button>
+          
+          <button id="sign-up" name="signup">Sign Up</button>
+          
+
+          <!-- Container for sign in status -->
+          <div>
+            Firebase Emoji editor sign-in status: <span id="sign-in-status">Unknown</span>
+          </div>
+    
+    </div>
+
+    <div class="emoji-page">
+      <div>
+      <div class="editor"></div>
+        <canvas id="canvas" width="256px" height="256px"></canvas>
+        <div id="info-text">
+          <p>Choose color to draw an emoji. With same color you can toggle a led in the editor.</p>
+          <p>If the page is refreshed, the user is logged out.</p>
+        </div>
+        <button id="sign-out">Sign out</button>
+        <div id="black"></div><div id="yellow"></div>
+          <div>
+            <button id="clear">Clear editor</button>
+            <button id="save">Save emoji to Firebase</button><div id="empty"><p>Editor is empty, can not save.</p></div>
+          </div>
+            <div id="enterName">
+            <form id="confirmForm" onsubmit="savingConfirmed()">
+            <input type="text" id="emojiName" name="emojiName" pattern=".{4,12}" required title="4 to 12 characters" placeholder="name of emoji" required/>
+            <input id="checkConfirm" type="checkbox" required>I am sure I want to save this emoji.</input><button id="cancel-saving">Cancel</button>
+            <input type="submit" value="Confirm saving">
+            </form>
+          </div>
+      </div>
+      
+      <!-- Grid Layout-->
+      <div id="marginal">
+      <div class="items">            
+      </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+</html>

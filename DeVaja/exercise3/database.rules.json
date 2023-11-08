@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "emojis": {
+          ".read": "auth !== null",
+          ".write": "auth !== null && auth.token.role === 1"
+      }
+    
+  }
+}
