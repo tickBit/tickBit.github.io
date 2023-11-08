@@ -421,7 +421,12 @@ function toggleSignIn() {
   // if the page is refreshed, the user is signed out
   window.onbeforeunload = function(e) {
     firebase.auth().signOut();
+    
+    document.getElementById("emojiName").value = "";
+    document.getElementById("enterName").style.display = "none";
+    document.getElementById("checkConfirm").checked = false;
     document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
   }
 
   // the entry point of app
