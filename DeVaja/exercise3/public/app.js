@@ -13,7 +13,7 @@
   when installing the Firebase environment.
 
   Please notice, that if you want to write to emulated Firebase realtime database, you must create
-  to a user a role at "http://127.0.0.1:4000/auth" like this: {"role": 1}, when the Firebase emulator is running and you've signed up a user.
+  to a user a role at "127.0.0.1:9000" like this: {"role": 1}, when the Firebase emulator is running and you've signed up a user.
 
 */
 
@@ -333,13 +333,15 @@ function toggleSignIn() {
   // read emojis from the Firebase realtime database
   function readEmojis() {
        
-    //  if (location.hostname === "localhost") {
-    //    db.useEmulator("127.0.0.1", 9000);
-    //  }
     
     firebase.database().ref("/emojis/").limitToFirst(72).on("value", (snapshot) => {
       let emojis = snapshot.val();
     
+      if (emojis === null) {
+        console.log("No emojis yet.");
+        return;
+      }
+
       let i = 0;
 
       let items = document.getElementsByClassName("items")[0];
@@ -347,10 +349,10 @@ function toggleSignIn() {
           items.removeChild(items.lastChild);
       }
 
-      for (key in emojis) {
+      for (let key in emojis) {
         let emoji = emojis[key]["emoji"];
         let entry = [];
-        for (k of emoji) {
+        for (let k of emoji) {
           let value = parseInt(k);
           if (value in [0,1,2]) entry.push(value);
         }
