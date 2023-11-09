@@ -13,7 +13,7 @@
   when installing the Firebase environment.
 
   Please notice, that if you want to write to emulated Firebase realtime database, you must create
-  to a user a role at "127.0.0.1:9000" like this: {"role": 1}, when the Firebase emulator is running and you've signed up a user.
+  to a user a role at "http://127.0.0.1:4000/auth" like this: {"role": 1}, when the Firebase emulator is running and you've signed up a user.
 
 */
 
