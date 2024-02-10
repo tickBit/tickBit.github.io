@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
 <link rel="StyleSheet" href="styles.css" type="text/css" />
 <script src="c64spriteeditor.js"></script>
@@ -8,7 +7,7 @@
 </head>
 
 <body>
-<H1>Commodore 64 sprite editor v0.8</H1>
+<H1>Commodore 64 sprite editor v0.85</H1>
 
 <div id="spriteColorMode">
 <fieldset id="spriteColor">
@@ -26,7 +25,9 @@ If you want to load from a txt file multi color sprite, please select multi colo
     <button id="sb">Generate sprite as Basic data statements</button>
     <button id="sc">Generate sprite as C code</button>
     <button id="sa">Generate sprite as assembly code</button>
-    <input id="ls" type="file" accept='text/plain' onchange="openFile(event)"></input>
+    <button><label>
+    <input hidden id="ls" type="file" accept='text/plain' onchange="openFile(event)"></input>
+    Load saved sprite</label></button>
     <div id="savesprite">
     </div>
 </div>
@@ -39,9 +40,27 @@ If you want to load from a txt file multi color sprite, please select multi colo
 <fieldset id="colors">
     <legend>Select color</legend>
     <div id="first"><input type="radio" id="color01" name="color" value="color01" checked><label for="color01">Color 01</label></div>
-    <div id="second"><input type="radio" id="color11" name="color" value="color11"><label for="color11">Color 11</label></div>
-    <div id="third"><input type="radio" id="color10" name="color" value="color10"><label for="color10">Color 10</label></div>
+    <div id="second"><input type="radio" id="color10" name="color" value="color10"><label for="color10">Color 10</label></div>
+    <div id="third"><input type="radio" id="color11" name="color" value="color11"><label for="color11">Color 11</label></div>
 </fieldset>
+    <div id="c64colorsDiv">
+        <div class="color-box" style="background-color: #000000" data-color="0"></div>
+        <div class="color-box" style="background-color: #ffffff" data-color="1"></div>
+        <div class="color-box" style="background-color: #880000" data-color="2"></div>
+        <div class="color-box" style="background-color: #AAFFEE" data-color="3"></div>
+        <div class="color-box" style="background-color: #CC44CC" data-color="4"></div>
+        <div class="color-box" style="background-color: #00CC55" data-color="5"></div>
+        <div class="color-box" style="background-color: #0000AA" data-color="6"></div>
+        <div class="color-box" style="background-color: #EEEE77" data-color="7"></div>
+        <div class="color-box" style="background-color: #DD8855" data-color="8"></div>
+        <div class="color-box" style="background-color: #664400" data-color="9"></div>
+        <div class="color-box" style="background-color: #FF7777" data-color="10"></div>
+        <div class="color-box" style="background-color: #333333" data-color="11"></div>
+        <div class="color-box" style="background-color: #777777" data-color="12"></div>
+        <div class="color-box" style="background-color: #AAFF66" data-color="13"></div>
+        <div class="color-box" style="background-color: #0088FF" data-color="14"></div>
+        <div class="color-box" style="background-color: #BBBBBB" data-color="15"></div>
+    </div>
 </div>
 <div id="sprite">
     <canvas id="spriteCanvas" width="96" height="84"></canvas>

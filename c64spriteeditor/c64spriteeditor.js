@@ -8,7 +8,29 @@ var single = true;
 
 window.onload = function() {
 
-    
+    canvas1 = document.getElementById("editCanvas");
+    ctx1 = canvas1.getContext("2d");
+
+    canvas2 = document.getElementById("spriteCanvas");
+    ctx2 = canvas2.getContext("2d");
+
+    const colorBoxes = document.querySelectorAll('.color-box');
+
+        colorBoxes.forEach(colorBox => {
+            colorBox.addEventListener('click', function(event) {
+                const color = this.style.backgroundColor;
+                //console.log('Color value:', color);
+                
+                // get color
+                if (document.getElementById("color01").checked && document.getElementById("second").style.color != color && document.getElementById("third").style.color != color) document.getElementById("first").style.color = color;
+                if (document.getElementById("color10").checked && document.getElementById("first").style.color != color && document.getElementById("third").style.color != color) document.getElementById("second").style.color = color;
+                if (document.getElementById("color11").checked && document.getElementById("first").style.color != color && document.getElementById("second").style.color != color) document.getElementById("third").style.color = color;
+
+            });
+        });
+
+    clearBoard(false);
+
     let singleRadio = document.getElementById("single");
     singleRadio.checked = true;
     singleRadio.addEventListener("click", function() {
@@ -38,8 +60,6 @@ window.onload = function() {
     saveASM.addEventListener("click", function() {
         if (single) saveSprite3(); else saveMultiColorSprite3();
     });
-    
-    
 
     let multi = document.getElementById("multi");
     multi.addEventListener("click", function() {
@@ -49,14 +69,6 @@ window.onload = function() {
         let colorSelection = document.getElementById("colorSelection");
         colorSelection.style.display = "block";
     });
-
-    canvas1 = document.getElementById("editCanvas");
-    ctx1 = canvas1.getContext("2d");
-
-    canvas2 = document.getElementById("spriteCanvas");
-    ctx2 = canvas2.getContext("2d");
-
-    clearBoard(false);
 
     canvas1.addEventListener("mousedown", function (event) {
     
@@ -81,34 +93,37 @@ window.onload = function() {
         } else {
 
             // get color
-            let color01 = document.getElementById("color01")
-            let color10 = document.getElementById("color10")
-            let color11 = document.getElementById("color11")
-
+            const color01 = document.getElementById("color01");
+            const color10 = document.getElementById("color10");
+            const color11 = document.getElementById("color11");
+            
+            const col01 = document.getElementById("first").style.color;
+            const col10 = document.getElementById("second").style.color;
+            const col11 = document.getElementById("third").style.color;
 
             x = parseInt(x / 64);
             y = parseInt(y / 32);
 
             if (color01.checked && board[x+y*12] == 1) {
                 board[x+y*12] = 0;
-                ctx1.fillStyle = "#FFFFFF";
+                ctx1.fillStyle = "lightgrey";
             } else if (color01.checked) {
-                ctx1.fillStyle = "#1e12d1";
+                ctx1.fillStyle = col01;
                 board[x+y*12] = 1;  // "01"
             }
             if (color11.checked && board[x+y*12] == 3) {
                 board[x+y*12] = 0;
-                ctx1.fillStyle = "#FFFFFF";
+                ctx1.fillStyle = "lightgrey";
             } else if (color11.checked) {
-                ctx1.fillStyle = "#ff0000";
+                ctx1.fillStyle = col11;
                 board[x+y*12] = 3;
             }
 
             if (color10.checked && board[x+y*12] == 2) {
                 board[x+y*12] = 0;
-                ctx1.fillStyle = "#FFFFFF";
+                ctx1.fillStyle = "lightgrey";
             } else if (color10.checked) {
-                ctx1.fillStyle = "#008000";
+                ctx1.fillStyle = col10;
                 board[x+y*12] = 2;
             }
             
@@ -148,17 +163,21 @@ function drawBoard() {
 function drawBoardMulti() {
     let counter = 0;
 
+    const col01 = document.getElementById("first").style.color;
+    const col10 = document.getElementById("second").style.color;
+    const col11 = document.getElementById("third").style.color;
+
     for (let y = 0; y < canvas1.height; y+=32) {
         counter +=1;
         for (let x = 0; x < canvas1.width; x+=64) {
             if (counter % 2 == 0) ctx1.fillStyle = "#888888"; else ctx1.fillStyle = "#cccccc"; 
             
                 if (board[parseInt(x/64)+parseInt(y/32)*12] == 1) {
-                    ctx1.fillStyle = "#1e12d1";
+                    ctx1.fillStyle = col01;
                 } else if (board[parseInt(x/64)+parseInt(y/32)*12] == 2) {
-                    ctx1.fillStyle = "#008000";
+                    ctx1.fillStyle = col10;
                 } else if (board[parseInt(x/64)+parseInt(y/32)*12] == 3) {
-                    ctx1.fillStyle = "#ff0000";
+                    ctx1.fillStyle = col11;
                 }
                 ctx1.fillRect(x,y,64,32);
                 counter +=1;
@@ -170,18 +189,26 @@ function drawBoardMulti() {
 
 
 function drawSpriteMulti() {
+
+    const col01 = document.getElementById("first").style.color;
+    const col10 = document.getElementById("second").style.color;
+    const col11 = document.getElementById("third").style.color;
+
+    ctx2.fillStyle = "lightgray";
+    ctx2.fillRect(0, 0, 96, 84);
+
     for (let y = 0; y < 21; y++) {
         for (let x = 0; x < 12; x++) {
             if (board[x+y*12] == 1) {
-                ctx2.fillStyle = "#1e12d1";
+                ctx2.fillStyle = col01;
             } else if (board[x+y*12] == 2) {
-                    ctx2.fillStyle = "#008000";
+                    ctx2.fillStyle = col10;
                 }
             else if (board[x+y*12] == 3) {
-                    ctx2.fillStyle = "#ff0000";
+                    ctx2.fillStyle = col11;
             }
             else if (board[x+y*12] == 0) {
-                ctx2.fillStyle = "#FFFFFF";
+                ctx2.fillStyle = "lightgray";
             }
             ctx2.fillRect(x * 8, y * 4, 8, 4);
         }
@@ -216,6 +243,10 @@ function clearBoard(justLoaded) {
     }
     if (single) drawBoard(); else drawBoardMulti();
     if (single) drawSprite(); else drawSpriteMulti();
+
+    document.getElementById("first").style.color = "rgb(136, 0, 0)";
+    document.getElementById("second").style.color = "rgb(0, 136, 255)";
+    document.getElementById("third").style.color = "rgb(255, 119, 119)";
 }
 
 function clearBoardMulti(justLoaded) {
@@ -225,6 +256,11 @@ function clearBoardMulti(justLoaded) {
     for (let i = 0; i < 504; i++) {
         board[i] = 0;
     }
+
+    document.getElementById("first").style.color = "rgb(136, 0, 0)";
+    document.getElementById("second").style.color = "rgb(0, 136, 255)";
+    document.getElementById("third").style.color = "rgb(255, 119, 119)";
+
     drawBoardMulti();
     drawSpriteMulti();
 }
@@ -769,6 +805,4 @@ function saveMultiColorSprite3() {
     let text = document.createTextNode("Download");
     link.appendChild(text);
     saveSprite.appendChild(link);
-
 }
-
