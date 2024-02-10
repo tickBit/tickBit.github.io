@@ -26,6 +26,8 @@ window.onload = function() {
                 if (document.getElementById("color10").checked && document.getElementById("first").style.color != color && document.getElementById("third").style.color != color) document.getElementById("second").style.color = color;
                 if (document.getElementById("color11").checked && document.getElementById("first").style.color != color && document.getElementById("second").style.color != color) document.getElementById("third").style.color = color;
 
+                drawBoardMulti();
+                drawSpriteMulti();
             });
         });
 
