@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji editor</title>
+
+  <link rel="stylesheet" href="./styles.css">
+  
+  <script defer src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database-compat.js"></script>
+  <script defer type="module" src="./config.js"></script>
+  <script defer type="module" src="./app.js"></script>
+  
+</head>
+<body background="./bg.jpg">
+
+    <div class="frontPage">
+      
+          <h2 id="title">Firebase Email &amp; Password Authentication for Emoji editor</h2>
+          <p id="exercise">This application is only an excercise.</p>
+
+          <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+
+          <input type="text" id="email" name="email" placeholder="Email"/>
+          
+          <input type="password" id="password" name="password" placeholder="Password"/>
+          <br/>
+          <textNode id="error-login"></textNode>
+          <br/>
+          <button class="btnSignIn" id="sign-in" name="signin">Sign In</button>
+          <button id="sign-up" name="signup">Sign Up</button>
+          
+          <div id="reset-password-div">
+              <button id="reset-password">Reset password</button>
+          </div>
+          
+          <!-- Container for sign in status -->
+          <div>
+            Firebase Emoji editor sign-in status: <span id="sign-in-status">Unknown</span>
+            <input type="checkbox" id="i-am-human"/><textNode id="human">I am human</textNode>
+          </div>
+    
+    </div>
+
+    <div class="emoji-page">
+      <div>
+      <div class="editor"></div>
+        <canvas id="canvas" width="256px" height="256px"></canvas>
+        <div id="info-text">
+          <p>Choose color to draw an emoji. With same color you can toggle a led in the editor.</p>
+          <p>If the page is refreshed, the user is logged out.</p>
+        </div>
+        
+        <div id="buttons">
+        <button id="delete-me">Delete my account</button>
+        <button id="sign-out">Sign out</button>
+          <div id="confirm-delete-me">
+            <p id="delete-me-text">I am sure, I want to delete my account. The emojis I created, will still remain. Emojis are not connected to certain user account. After deleting the account user will be logged out immedeately.</p>
+            <button id="cancel-delete">Cancel</button>
+            <button id="confirm-delete">Confirm delete account</button>
+          </div>
+        </div>
+
+        <div id="black"></div><div id="yellow"></div>
+          <div>
+            <button id="clear">Clear editor</button>
+            <button id="save">Save emoji to Firebase</button><div id="io-div"><textNode id="io-text"></textNode></div>
+          </div>
+            <div id="enterName">
+            <form id="confirmForm" onsubmit="savingConfirmed()">
+            <input type="text" id="emojiName" name="emojiName" pattern=".{3,12}" required title="3 to 12 characters" placeholder="name of emoji" required/>
+            <input id="checkConfirm" type="checkbox" required>I am sure I want to save this emoji.</input><button id="cancel-saving">Cancel</button>
+            <input type="submit" value="Confirm saving">
+            </form>
+          </div>
+      </div>
+      
+      <!-- Grid Layout-->
+      <div id="marginal">
+      <div class="items">            
+      </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+ #title {
+    text-align: center;
+  }
+
+#sign-in-status {
+    font-weight: bold;
+  }
+  
+#sign-out-button {
+    display: none;
+  }  
+  
+.frontPage {
+    display: block;
+    background-color: darkgrey;
+    position: relative;
+    text-align: center;
+    top: 7em;
+    width: 64%;
+    height: 15%;
+    left: 16%;
+  }
+
+.editor {
+    position: absolute;
+    background-color: darkgrey;
+    padding: 0px;
+}
+
+.item {
+  position: relative;
+  padding: 1em;
+}
+
+#buttons {
+  position: absolute;
+  top: 2%;
+  left: 85%;
+}
+
+#delete-me {
+    margin-right: 1em;
+}
+
+#confirm-delete-me {
+  display: none;
+}
+
+#delete-me-text {
+  color: red;
+}
+
+#save {
+    position: absolute;
+    top: 242px;
+    left: 282px;   
+}
+
+#canvas {
+  position: relative;
+  margin: 12px;
+  background-color:lightgray;
+}
+
+.items {
+  position: relative;
+  width: auto;
+  margin: auto;
+  display: grid;
+}
+
+
+/* 12 columns */
+.items { grid-template-columns: 7em 7em 7em 7em 7em 7em 7em 7em 7em 7em 7em 7em; }
+
+.emoji-page {
+  display: none;
+  text-align: left;
+  position: relative;
+  width: 90%;
+  top: 7em;
+  left: 5%;
+  background-color: darkgray;
+}
+
+#black {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-color: black;
+    left: 282px;
+    top: 12px;
+}
+
+#yellow {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-color:yellow;
+    left: 282px;
+    top: 48px;
+}
+
+#enterName {
+    display: none;
+    position: absolute;
+    top: 242px;
+    left: 282px;   
+}
+
+#marginal {
+    margin-bottom: 14em;
+}
+
+#cancel-saving {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+#info-text {
+  position: absolute;
+  color:white;
+  text-align: left;
+  top: 2%;
+  left: 490px;
+}
+
+#human {
+  float: right;
+}
+
+#i-am-human {
+  float: right;
+}
+
+#io-div {
+  display: none;
+  position: absolute;
+  text-align: left;
+  top: 245px;
+  left: 490px;
+}
+
+#io-text {
+  color: red;
+}
+
+
+#clear {
+    position: absolute;
+    top: 200px;
+    left: 282px;
+}
+
+#exercise {
+  color:whitesmoke;
+}
+
+#error-login {
+  display: none;
+  color: red;
+}
+
+@keyframes blinker {
+  50% {
+    background-color: red;
+    opacity: 0.2;
+  }
+  100% {
+    background-color: white;
+    opacity: 1.0;
+  }
+}
+
+.animateDescriptor {    
+  animation: blinker 1.0s;  
+}
+
+#reset-password-div {
+  margin-top: 0.5em;
+}
