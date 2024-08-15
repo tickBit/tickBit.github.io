@@ -110,10 +110,12 @@ function toggleSignIn() {
 
     if (!EMAIL_REGEX.test(email)) {
       printErrorMessage("Email address was not valid", 8000);
+      blinkEmail();
       return;
     }
     if (password.length < 4) {
       printErrorMessage("Password was too short", 8000);
+      blinkPassword();
       return;
     }
 
