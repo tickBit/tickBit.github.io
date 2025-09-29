@@ -15,6 +15,14 @@ export default function Board() {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
+        // if the cell already has the selected color, set it to 0 (erase)
+        if (board[Math.floor(y / 50) * 8 + Math.floor(x / 50)] === drawColor) {
+            board[Math.floor(y / 50) * 8 + Math.floor(x / 50)] = 0;
+            setBoard([...board]);
+            return;
+        }
+        
+        // set the cell to the selected color
         setBoard(prevBoard => {
             const newBoard = [...prevBoard];
             const cellX = Math.floor(x / 50);
