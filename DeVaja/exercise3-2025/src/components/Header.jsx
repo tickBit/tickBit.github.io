@@ -14,8 +14,7 @@ function Header() {
         <Navbar.Brand className="text-white">Create and watch emojis</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          
-          {currentUser !== null ? <div>
+          {currentUser ? <div>
               <Navbar.Text className="text-white">
                 Signed in as: {currentUser}
               </Navbar.Text>
