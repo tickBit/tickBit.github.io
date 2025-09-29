@@ -3,7 +3,7 @@ import { useDrawColor } from '../contexts/DrawColorContext'
 
 export default function Colors() {
     
-    const colors = useMemo(() => ['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#EEEEFF'], []);
+    const colors = useMemo(() => ['#010101', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#EEEEFF'], []);
     const { drawColor, setDrawColor } = useDrawColor();
         
     // handle mouse move
@@ -40,7 +40,7 @@ export default function Colors() {
     }, [colors, drawColor]);
     
   return (
-    <div>
+    <div style={{textAlign: "center", marginBottom: "1rem"}}>
         <canvas id="canvasCol" width="406" height="56" onClick={(e) => handleMouseClick(e)}></canvas>
     </div>
   )
