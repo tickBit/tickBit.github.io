@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useDrawColor } from '../contexts/DrawColorContext'
+import { auth, db } from "../firebase";
+import { ref, set, push } from "firebase/database";
 
 export default function Board() {
     
@@ -8,7 +10,41 @@ export default function Board() {
         
     // define 8 x 8 board with zeros
     const [board, setBoard] = useState(Array(64).fill(0));
-    
+
+    // save board to firebase
+    function saveToFirebase() {
+        // check, that emoji board is not empty
+        if (board.every(cell => cell === 0)) {
+            alert("Emoji board is empty!");
+            return;
+        }
+        
+        if (!auth.currentUser) {
+            alert("You must be logged in to save emoji!");
+            return;
+        }
+        
+        // define emoji object
+        const emoji = {
+            // board as an array
+            board: Array.from(board),
+            author: auth.currentUser.email,
+            name: "Name of emoji"
+        };
+        // write to firebase database under "users" node with push
+        const emojiListRef = ref(db, 'users/');
+        const newEmojiRef = push(emojiListRef);
+        set(newEmojiRef, emoji)
+        
+        .then(() => {
+            alert("Emoji saved to Firebase!");
+        })
+        .catch((error) => {
+            alert("Error saving emoji: " + error.message);
+        });
+        
+    }    
+            
     // handle mouse move
     function handleMouseClick(e) {
         const rect = e.target.getBoundingClientRect();
@@ -64,13 +100,14 @@ export default function Board() {
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
                 if (board[j * 8 + i] !== 0) {
-                    emojiCtx.fillStyle = colors[board[j * 8 + i]];
+                    emojiCtx.fillStyle = colors[board[j * 8 + i] - 1];
                     emojiCtx.fillRect(i * emojiCellSize, j * emojiCellSize, emojiCellSize, emojiCellSize);
                 }
             }
         }
         
     }, [board, colors]);
+    
     
   return (
       <>
@@ -82,6 +119,9 @@ export default function Board() {
     <div className="d-flex justify-content-center">
         <div className="board">
             <canvas id="canvas" width="400" height="400" onClick={(e) => handleMouseClick(e)}></canvas>
+        </div>
+        <div style={{width: "1rem"}}>
+        <button className="btn btn-secondary" onClick={() => saveToFirebase()}>Save to Firebase</button>
         </div>
     </div>
     </>

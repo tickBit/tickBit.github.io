@@ -30,7 +30,7 @@ export default function Colors() {
             ctx.fillStyle = colors[i];
             ctx.fillRect(i * cellSize, 0, cellSize, cellSize);
             if (i === drawColor) {
-                ctx.strokeStyle = '#FFFF00';
+                ctx.strokeStyle = '#CCCCFF';
                 ctx.lineWidth = 3;
                 ctx.strokeRect(drawColor * cellSize + 1, 1, cellSize - 2, cellSize - 2);
             }
