@@ -111,9 +111,9 @@ export default function Board() {
     
   return (
       <>
-      <div style={{textAlign: "center", marginTop: "1rem"}}>Emoji Preview (4x4 px per cell)   
+      <div style={{textAlign: "center", margintop: "1rem"}}>Emoji Preview (4x4 px per cell)   
         <div className="emojiPreview">
-            <canvas id="emojiCanvas" width="40" height="40" marginTop="14rem"></canvas>
+            <canvas id="emojiCanvas" width="40" height="40" margintop="14rem"></canvas>
         </div>
     </div>
     <div className="d-flex justify-content-center">

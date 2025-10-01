@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext'
 import Header from './Header'
 import Board from './Board'
 import Colors from './Colors'
+import Emojis from './Emojis';
 
 const Main = () => {
   
@@ -18,6 +19,7 @@ const Main = () => {
         {currentUser ? <div>
           <Colors />
           <Board />
+          <Emojis />
           </div>
           :
           <> 
