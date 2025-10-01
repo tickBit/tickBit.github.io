@@ -1,13 +1,7 @@
-import React, { useMemo, useEffect, use } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { db } from "../firebase";
 import { ref, onValue } from "firebase/database";
 import EmojiCanvas from './EmojiCanvas';
-
-/*
-  TODO:
-   - grid layout
-   - 
-*/
 
 const MAX_AMOUNT_OF_EMOJIS = 20;
 
@@ -44,7 +38,7 @@ export default function Emojis() {
       <div className="emoji-grid">
         {emojis.map((item, index) => (
           <div className="emoji-item">
-            <EmojiCanvas emoji={item.emoji} index={index} key={index} />
+            <EmojiCanvas emoji={item.emoji} index={index} />
             <p>{item.name}</p>
           </div>
         ))}
