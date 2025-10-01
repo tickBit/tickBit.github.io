@@ -2,17 +2,20 @@ import React, { useMemo, useState } from 'react'
 import { useDrawColor } from '../contexts/DrawColorContext'
 import { auth, db } from "../firebase";
 import { ref, set, push } from "firebase/database";
+import { useEmojiNames } from '../contexts/EmojiNamesContext';
 
 export default function Board() {
     
     const colors = useMemo(() => ['#010101', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#EEEEFF'], []);
     const { drawColor } = useDrawColor();
-        
+    const { emojiNames } = useEmojiNames();
+    
     // define 8 x 8 board with zeros
     const [board, setBoard] = useState(Array(64).fill(0));
 
     // save board to firebase
     function saveToFirebase() {
+        
         // check, that emoji board is not empty
         if (board.every(cell => cell === 0)) {
             alert("Emoji board is empty!");
@@ -31,6 +34,16 @@ export default function Board() {
             author: auth.currentUser.email,
             name: prompt("Enter a name for your emoji:") || "Name of emoji"
         };
+        
+        // check, that is emoji.name in emojiNames array
+        function checker(name) {
+            return name.trim().toLowerCase() === emoji.name.trim().toLowerCase();
+        }
+        if (emojiNames.some(checker)) {
+            alert("Emoji name already exists! Please choose a different name.");
+            return;
+        }
+        
         // write to firebase database under "users" node with push
         const emojiListRef = ref(db, 'users/');
         const newEmojiRef = push(emojiListRef);
@@ -107,7 +120,7 @@ export default function Board() {
         }
         
     }, [board, colors]);
-    
+  
     
   return (
       <>

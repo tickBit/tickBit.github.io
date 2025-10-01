@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { db } from "../firebase";
 import { ref, onValue } from "firebase/database";
+import { useEmojiNames } from '../contexts/EmojiNamesContext';
 import EmojiCanvas from './EmojiCanvas';
 
 export default function Emojis() {
+    
+    const { setEmojiNames } = useEmojiNames();
+    let names = useMemo(() => [], []);
+    
     const [emojis, setEmojis] = useState([]);
 
     useEffect(() => {
@@ -18,22 +23,24 @@ export default function Emojis() {
             
             const emojiArr = [];
               for (let key in data) {
-                console.log(data[key]);
                 emojiArr.push({
                     emoji: data[key]["board"],
                     name: data[key]["name"]
                 });
-              }
-              setEmojis(emojiArr);
-        })
+                names.push(data[key]["name"]);
+                setEmojis(emojiArr);
+        }});
         
+        setEmojiNames(names);
         
       } catch (error) {
         console.error("Error fetching emojis:", error);
       }
-    }, []);
+    }, [names, setEmojiNames]);
 
     return (
+      <>
+        <h2 style={{textAlign: "center"}}>Saved Emojis</h2>
         <div className="emoji-grid">
             {emojis.map((item, index) => (
                 <div className="emoji-item" key={item.name}>
@@ -42,5 +49,6 @@ export default function Emojis() {
                 </div>
             ))}
         </div>
+      </>
     );
 }

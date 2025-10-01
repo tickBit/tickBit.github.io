@@ -6,6 +6,7 @@ import Header from './Header'
 import Board from './Board'
 import Colors from './Colors'
 import Emojis from './Emojis';
+import { EmojiNamesProvider } from '../contexts/EmojiNamesContext';
 
 const Main = () => {
   
@@ -13,6 +14,7 @@ const Main = () => {
     
   return (
     <DrawColorProvider>
+    <EmojiNamesProvider>
     <div>
         <Header />
         <div className="mainpage">
@@ -28,6 +30,7 @@ const Main = () => {
         }
         </div>
     </div>
+    </EmojiNamesProvider>
     </DrawColorProvider>
   )
 }
