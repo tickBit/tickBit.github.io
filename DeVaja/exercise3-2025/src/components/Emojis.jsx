@@ -40,7 +40,7 @@ export default function Emojis() {
     
   return (
     <div>
-      <h2>Emojis</h2>
+      <h2 style={{textAlign: "center"}}>Emojis</h2>
       <div className="emoji-grid">
         {emojis.map((item, index) => (
           <div className="emoji-item">

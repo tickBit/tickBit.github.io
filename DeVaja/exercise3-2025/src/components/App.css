@@ -14,7 +14,10 @@
 }
 
 .emoji-item {
-    
+    text-align: center;
+    font-size: small;
 }
 .emoji-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }

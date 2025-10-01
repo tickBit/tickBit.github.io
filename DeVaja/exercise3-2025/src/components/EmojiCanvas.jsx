@@ -10,7 +10,6 @@ export default function EmojiCanvas({emoji: boardData, index}) {
         const ctx = canvas.getContext('2d');
         const cellSize = 4;
         const board = boardData;
-        console.log(board);
         
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < 8; i++) {
