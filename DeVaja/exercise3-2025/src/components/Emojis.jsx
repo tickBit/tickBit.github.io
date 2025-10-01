@@ -1,48 +1,46 @@
-import React, { useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { db } from "../firebase";
 import { ref, onValue } from "firebase/database";
 import EmojiCanvas from './EmojiCanvas';
 
-const MAX_AMOUNT_OF_EMOJIS = 20;
-
 export default function Emojis() {
+    const [emojis, setEmojis] = useState([]);
 
-    let emoji_collection = useMemo(() => [], []);
-    const [emojis, setEmojis] = React.useState(emoji_collection)
-    
     useEffect(() => {
-      
-      const fetchEmojis = () => {
-            const emojiRef = ref(db, 'users/');
-            onValue(emojiRef, (snapshot) => {
-                let emojis = snapshot.val();
-                if (emojis === null) {
-                    console.log("No emojis yet.");
-                    return;
-                }
-                for (let key in emojis) {
-                    const emoji = emojis[key]["board"];
-                    const name = emojis[key]["name"];
-                    emoji_collection.push({emoji: emoji, name: name});
-                }
-                setEmojis(emoji_collection);
-            });
-          }
-      
-        fetchEmojis();
-    }, [emoji_collection]);
-    
-  return (
-    <div>
-      <h2 style={{textAlign: "center"}}>Emojis</h2>
-      <div className="emoji-grid">
-        {emojis.map((item, index) => (
-          <div className="emoji-item">
-            <EmojiCanvas emoji={item.emoji} index={index} />
-            <p>{item.name}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+      try {  
+        onValue(ref(db, 'users/'), (snapshot) => {
+
+            const data = snapshot.val();
+            if (!data) {
+              setEmojis([]);
+              return;
+            }
+            
+            const emojiArr = [];
+              for (let key in data) {
+                console.log(data[key]);
+                emojiArr.push({
+                    emoji: data[key]["board"],
+                    name: data[key]["name"]
+                });
+              }
+              setEmojis(emojiArr);
+        })
+        
+        
+      } catch (error) {
+        console.error("Error fetching emojis:", error);
+      }
+    }, []);
+
+    return (
+        <div className="emoji-grid">
+            {emojis.map((item, index) => (
+                <div className="emoji-item" key={item.name}>
+                    <EmojiCanvas emoji={{ board: item.emoji, index }} />
+                    <p>{item.name}</p>
+                </div>
+            ))}
+        </div>
+    );
 }

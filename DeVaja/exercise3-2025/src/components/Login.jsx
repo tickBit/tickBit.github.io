@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div>
     <Container style={{width: "30rem"}}>
       <Card>
         <Card.Body>
@@ -42,6 +42,7 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
+            <br />
             <Button disabled={loading} className="w-100" type="submit">
               Log In
             </Button>
@@ -55,6 +56,6 @@ export default function Login() {
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </div>
       </Container>
-    </>
+    </div>
   )
 }

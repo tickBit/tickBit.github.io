@@ -55,14 +55,13 @@ export default function Profile() {
         const q = query(emojisRef, orderByChild('author'), equalTo(currentUser));
         get(q).then((snapshot) => {
             if (snapshot.exists()) {
-                const updates = {};
                 snapshot.forEach((child) => {
-                    updates[child.key] = null; // setting to null will delete the node
-                });
-                return remove(ref(db, 'users/'), updates);
-            }}).catch((error) => {
-                console.error("Error deleting user's emojis:", error);
+                remove(ref(db, `users/${child.key}`)); // Only remove this emoji
             });
+        }
+        }).catch((error) => {
+            console.error("Error deleting user's emojis:", error);
+        });
         
         const user = auth.currentUser;
         deleteUser(user).then(() => {

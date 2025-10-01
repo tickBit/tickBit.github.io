@@ -29,7 +29,7 @@ export default function Board() {
             // board as an array
             board: Array.from(board),
             author: auth.currentUser.email,
-            name: "Name of emoji"
+            name: prompt("Enter a name for your emoji:") || "Name of emoji"
         };
         // write to firebase database under "users" node with push
         const emojiListRef = ref(db, 'users/');

@@ -33,6 +33,7 @@ export default function Signup() {
   }
 
   return (
+    <div>
     <Container style={{width: "30rem"}}>
       <Card>
         <Card.Body>
@@ -62,5 +63,6 @@ export default function Signup() {
         Already have an account? <Link to="/login">Log In</Link>
       </div>
     </Container>
+    </div>
   )
 }
