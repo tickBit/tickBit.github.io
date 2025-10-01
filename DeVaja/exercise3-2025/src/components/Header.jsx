@@ -19,6 +19,10 @@ function Header() {
                 Signed in as: {currentUser}
               </Navbar.Text>
               {" "}
+              <Navbar.Text className="text-white">
+                <Link to="/profile" className="text-white">Profile</Link>
+              </Navbar.Text>
+              {" "}
               <Navbar.Text>
                 <Link to="/" onClick={logout} className='text-white'>Logout</Link>
               </Navbar.Text>

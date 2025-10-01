@@ -6,9 +6,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
-  updateEmail as fbUpdateEmail,
   updatePassword as fbUpdatePassword,
   onAuthStateChanged,
+  deleteUser
 } from "firebase/auth";
 
 const AuthContext = React.createContext();
@@ -39,11 +39,6 @@ export function AuthProvider({ children }) {
     return sendPasswordResetEmail(auth, email);
   }
 
-  function updateEmail(email) {
-    if (!currentUser) return Promise.reject(new Error("No current user"));
-    return fbUpdateEmail(currentUser, email);
-  }
-
   function updatePassword(password) {
     if (!currentUser) return Promise.reject(new Error("No current user"));
     return fbUpdatePassword(currentUser, password);
@@ -66,8 +61,8 @@ export function AuthProvider({ children }) {
     login,
     logout,
     resetPassword,
-    updateEmail,
     updatePassword,
+    deleteUser
   };
 
   return (
