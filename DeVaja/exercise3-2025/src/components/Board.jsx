@@ -121,7 +121,8 @@ export default function Board() {
             <canvas id="canvas" width="400" height="400" onClick={(e) => handleMouseClick(e)}></canvas>
         </div>
         <div style={{width: "1rem"}}>
-        <button className="btn btn-secondary" onClick={() => saveToFirebase()}>Save to Firebase</button>
+        <button style={{ marginLeft: "2rem"}} className="btn btn-primary" onClick={() => saveToFirebase()}>Save to Firebase</button>
+        <button style={{ marginLeft: "2rem", marginTop: "2rem"}} className="btn btn-secondary" onClick={() => setBoard(Array(64).fill(0))}>Clear Board</button>
         </div>
     </div>
     </>
