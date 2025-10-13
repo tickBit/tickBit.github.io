@@ -28,7 +28,9 @@ export default function Board() {
         }
         
         if (!auth.currentUser) {
-            alert("You must be logged in to save emoji!");
+            setIsSuccess(false);
+            setMessage("You must be logged in to save emoji!");
+            setShowAlert(true);
             return;
         }
         
@@ -45,7 +47,9 @@ export default function Board() {
             return name.trim().toLowerCase() === emoji.name.trim().toLowerCase();
         }
         if (emojiNames.some(checker)) {
-            alert("Emoji name already exists! Please choose a different name.");
+            setIsSuccess(false);
+            setMessage("Emoji name already exists! Please choose a different name.");
+            setShowAlert(true);
             return;
         }
         
@@ -55,10 +59,14 @@ export default function Board() {
         set(newEmojiRef, emoji)
         
         .then(() => {
-            alert("Emoji saved to Firebase!");
+            setIsSuccess(true);
+            setMessage("Emoji saved to Firebase!");
+            setShowAlert(true);
         })
         .catch((error) => {
-            alert("Error saving emoji: " + error.message);
+            setIsSuccess(false);
+            setMessage("Error saving emoji: " + error.message);
+            setShowAlert(true);
         });
         
     }    
