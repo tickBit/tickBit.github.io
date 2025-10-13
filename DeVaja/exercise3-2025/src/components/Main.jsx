@@ -18,10 +18,13 @@ const Main = () => {
     <div>
         <Header />
         <div className="mainpage">
-        {currentUser ? <div>
+        {currentUser ?
+         <div>
+          <div style={{width: "100%", textAlign: "center"}}>
           <Colors />
           <Board />
           <Emojis />
+          </div>
           </div>
           :
           <> 

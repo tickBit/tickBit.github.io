@@ -22,3 +22,17 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 1em;
 }
+
+#button-group {
+    margin-left: 4rem;
+    text-align: left;
+}
+
+.alert {
+    display: inline-block;
+    width: 55%
+}
+
+.my-alerts {
+    text-align: center;
+}
