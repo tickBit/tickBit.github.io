@@ -3,6 +3,8 @@ import { useDrawColor } from '../contexts/DrawColorContext'
 import { auth, db } from "../firebase";
 import { ref, set, push } from "firebase/database";
 import { useEmojiNames } from '../contexts/EmojiNamesContext';
+import MyPrompt from './MyPrompt';
+
 
 export default function Board() {
     
@@ -15,7 +17,33 @@ export default function Board() {
     const [message, setMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [emojiName, setEmojiName] = useState("");
+    
+    const [isPromptOpen, setIsPromptOpen] = useState(false)
         
+    const handlePromptSubmit = (value) => {
+    console.log('prompt submit:', value.trim());
+    setEmojiName(value);
+    if (value.trim() !== "") {
+      setIsPromptOpen(false);
+      saveToFirebase(value.trim()); // pass value directly
+    } else {
+      setIsPromptOpen(false);
+      setIsSuccess(false);
+      setMessage("Not saved: user canceled saving");
+      setShowAlert(true);
+    }
+  };
+    
+    // Always render the component; Modal will show/hide itself based on isModalOpen
+    const closePrompt = () => {
+        setIsPromptOpen(false);
+    };
+    
+    const openPrompt = () => {
+        setIsPromptOpen(true);
+    };
+     
     // save board to firebase
     function saveToFirebase() {
         
@@ -39,7 +67,7 @@ export default function Board() {
             // board as an array
             board: Array.from(board),
             author: auth.currentUser.email,
-            name: prompt("Enter a name for your emoji:") || "Name of emoji"
+            name: emojiName
         };
         
         // check, that is emoji.name in emojiNames array
@@ -62,11 +90,13 @@ export default function Board() {
             setIsSuccess(true);
             setMessage("Emoji saved to Firebase!");
             setShowAlert(true);
+            setEmojiName("");
         })
         .catch((error) => {
             setIsSuccess(false);
             setMessage("Error saving emoji: " + error.message);
             setShowAlert(true);
+            setEmojiName("");
         });
         
     }    
@@ -139,28 +169,30 @@ export default function Board() {
     
   return (
       <>
+        <MyPrompt isPromptOpen={isPromptOpen} onClose={closePrompt} onSubmit={handlePromptSubmit} />
+        
         {showAlert === true ? <>
             {isSuccess === false ?
-            <div class="my-alerts">
-            <div class="alert alert-danger" role="alert">
+            <div className="my-alerts">
+            <div className="alert alert-danger" role="alert">
             {message}
             </div>
             </div>
             :
-            <div class="my-alerts">
-            <div class="alert alert-success" role="alert">
+            <div className="my-alerts">
+            <div className="alert alert-success" role="alert">
             {message}
             </div>
             </div>
             }
             </>
         :
-        <div class="alert alert-info" role="alert" style={{textAlign: "center"}}>
+        <div className="alert alert-info" role="alert" style={{textAlign: "center"}}>
             Ready to use...
         </div>
         }
         <div id="button-group">
-            <button style={{marginBottom: "1rem"}} className="btn btn-primary" onClick={() => saveToFirebase()}>Save to Firebase</button>
+            <button style={{marginBottom: "1rem"}} className="btn btn-primary" onClick={() => openPrompt()}>Save to Firebase</button>
             <br />
             <button style={{marginBottom: "1rem"}} className="btn btn-secondary" onClick={() => setBoard(Array(64).fill(0))}>Clear Board</button>
         </div>
