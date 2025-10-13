@@ -23,10 +23,30 @@ export default function Board() {
         
     const handlePromptSubmit = (value) => {
     console.log('prompt submit:', value.trim());
-    setEmojiName(value);
-    if (value.trim() !== "") {
+    
+    const name = value.trim().toLowerCase();
+    if (name.length > 10) {
+        setIsSuccess(false);
+        setMessage("Too long emoji name");
+        setShowAlert(true);
+        setIsPromptOpen(false);
+        return;
+    }
+    
+    const regex = /^[a-z0-9]+$/i
+    console.log(regex.test(name))
+    if (regex.test(name) === false) {
+        setIsSuccess(false);
+        setMessage("The name must be alphanumeric");
+        setShowAlert(true);
+        setIsPromptOpen(false);
+        return;
+    }
+    
+    setEmojiName(name);
+    if (name !== "") {
       setIsPromptOpen(false);
-      saveToFirebase(value.trim()); // pass value directly
+      saveToFirebase(name); // pass value directly
     } else {
       setIsPromptOpen(false);
       setIsSuccess(false);
