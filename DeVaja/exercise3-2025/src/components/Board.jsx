@@ -158,18 +158,20 @@ export default function Board() {
         <div class="alert alert-info" role="alert" style={{textAlign: "center"}}>
             Ready to use...
         </div>
-        }    
+        }
         <div id="button-group">
             <button style={{marginBottom: "1rem"}} className="btn btn-primary" onClick={() => saveToFirebase()}>Save to Firebase</button>
             <br />
             <button style={{marginBottom: "1rem"}} className="btn btn-secondary" onClick={() => setBoard(Array(64).fill(0))}>Clear Board</button>
         </div>
+      
       <div style={{textAlign: "center", margintop: "1rem"}}>Emoji Preview (4x4 px per cell)   
         <div className="emojiPreview">
             <canvas id="emojiCanvas" width="40" height="40" margintop="14rem"></canvas>
         </div>
-    </div>
-    <div className="d-flex justify-content-center">
+      </div>
+    
+    <div style={{textAlign: "center"}}>
         <div className="board">
             <canvas id="canvas" width="400" height="400" onClick={(e) => handleMouseClick(e)}></canvas>
         </div>

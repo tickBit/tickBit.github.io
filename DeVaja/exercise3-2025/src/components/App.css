@@ -8,8 +8,7 @@
     margin: auto;
 }
 
-.emojiPreview {
-    
+.emojiPreview {    
     text-align: top;
 }
 
@@ -23,6 +22,11 @@
     gap: 1em;
 }
 
+#my-buttons {
+    display: block;
+    text-align: left;
+}
+
 #button-group {
     margin-left: 4rem;
     text-align: left;
@@ -30,7 +34,7 @@
 
 .alert {
     display: inline-block;
-    width: 55%
+    width: 55%;
 }
 
 .my-alerts {
