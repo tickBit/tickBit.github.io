@@ -28,20 +28,22 @@
 }
 
 #button-group {
-    margin-left: 4rem;
-    text-align: left;
+    text-align: center;
 }
 
 .alert {
     display: inline-block;
-    width: 55%;
+    width: 100%;
 }
 
 .my-alerts {
     text-align: center;
 }
 
-
+.drawing-area {
+    display: inline-flex;
+    margin: auto;
+}
 
 
 .my-prompt {

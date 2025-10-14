@@ -19,12 +19,12 @@ function Header() {
                 Signed in as: {currentUser}
               </Navbar.Text>
               {" "}
-              <Navbar.Text className="text-white">
+              <Navbar.Text className="text-white" style={{marginLeft: "2rem"}}>
                 <Link to="/profile" className="text-white">Profile</Link>
               </Navbar.Text>
               {" "}
               <Navbar.Text>
-                <Link to="/" onClick={logout} className='text-white'>Logout</Link>
+                <Link to="/" onClick={logout} className='text-white' style={{marginLeft: "1rem"}}>Logout</Link>
               </Navbar.Text>
               </div>
               :

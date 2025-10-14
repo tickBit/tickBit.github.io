@@ -4,7 +4,6 @@ import { DrawColorProvider } from '../contexts/DrawColorContext';
 import { useAuth } from '../contexts/AuthContext'
 import Header from './Header'
 import Board from './Board'
-import Colors from './Colors'
 import Emojis from './Emojis';
 import { EmojiNamesProvider } from '../contexts/EmojiNamesContext';
 
@@ -21,7 +20,6 @@ const Main = () => {
         {currentUser ?
          <div>
           <div style={{width: "100%", textAlign: "center"}}>
-          <Colors />
           <Board />
           <Emojis />
           </div>

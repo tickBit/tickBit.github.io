@@ -8,40 +8,52 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
     
-    const { currentUser } = useAuth()
+    const { currentUser, user } = useAuth()
     const [newpassword, setNewPassword] = React.useState("")
     const [currentpassword, setCurrentPassword] = React.useState("")
-    
+    const [message, setMessage] = React.useState("")
+    const [isSuccess, setIsSuccess] = React.useState(false);
+    const [showAlert, setShowAlert] = React.useState(false);
+        
     const navigate = useNavigate()
     
     function changePassword() {
         
-        setNewPassword(document.getElementById("newPassword").value)
-        setCurrentPassword(document.getElementById("currentPassword").value)
+        let newpw = document.getElementById("newPassword").value.trim()
+        let currentpw = document.getElementById("currentPassword").value.trim()
         
-        if (newpassword.length < 6) {
-            alert("Password should be at least 6 characters long.")
+        if (newpw.length < 6) {
+            setMessage("Password should be at least 6 characters long.")
+            setIsSuccess(false)
+            setShowAlert(true)
+            console.log(newpassword);
             return
         }
         
-        if (newpassword === currentpassword) {
-            alert("New password must be different from current password.")
+        if (newpw === currentpw) {
+            setMessage("New password must be different from current password.")
+            setIsSuccess(false)
+            setShowAlert(true)
             return
         }
         
         // Call the updatePassword function from AuthContext
-        updatePassword(newpassword)
+        updatePassword(user, newpw)
             .then(() => {
-                alert("Password updated successfully.")
-                setNewPassword("")
-                setCurrentPassword("")
+                setMessage("Password updated successfully.")
+                setIsSuccess(true)
+                setShowAlert(true)
+                setNewPassword(newpw)
+                setCurrentPassword(currentpw)
             })
             .catch((error) => {
-                console.error("Error updating password:", error)
-                alert("Failed to update password: " + error.message)
+                //console.error("Error updating password:", error)
+                setMessage("Failed to update password: " + error.message)
+                setIsSuccess(false)
+                setShowAlert(true)
             })
             
-        navigate("/") // redirect to main page
+        //navigate("/") // redirect to main page
     }
     
     function deleteAccount() {
@@ -78,6 +90,31 @@ export default function Profile() {
     <div>
         <h2 style={{textAlign: "center"}}>Profile</h2>
         <p style={{textAlign: "center"}}>Logged in as: {currentUser}</p>
+        {showAlert && showAlert === true ? <>
+            <div style={{textAlign: "center"}}>
+            {isSuccess === false ?
+            <div className="my-alerts">
+            <div className="alert alert-danger" role="alert" style={{width: "55%"}}>
+            {message}
+            </div>
+            </div>
+            :
+            <div className="my-alerts">
+            <div className="alert alert-success" role="alert" style={{width: "55%"}}>
+            {message}
+            </div>
+            </div>
+            }
+            </div>
+            </>
+        :
+        <div style={{textAlign: "center"}}>
+        <div className="alert alert-info" role="alert" style={{textAlign: "center", width: "55%"}}>
+            Review your account
+        </div>
+        </div>
+        }
+        
         <div style={{textAlign: "center", marginTop: "2rem"}}>
         <input type="password" placeholder='Current password' width="8em" style={{marginTop: "1rem", paddingInline: "4em"}} id="currentPassword" />
         <br />

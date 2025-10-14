@@ -3,6 +3,7 @@ import { useDrawColor } from '../contexts/DrawColorContext'
 import { auth, db } from "../firebase";
 import { ref, set, push } from "firebase/database";
 import { useEmojiNames } from '../contexts/EmojiNamesContext';
+import Colors from './Colors'
 import MyPrompt from './MyPrompt';
 
 
@@ -198,27 +199,26 @@ export default function Board() {
         {showAlert === true ? <>
             {isSuccess === false ?
             <div className="my-alerts">
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger" role="alert" style={{width: "55%"}}>
             {message}
             </div>
             </div>
             :
             <div className="my-alerts">
-            <div className="alert alert-success" role="alert">
+            <div className="alert alert-success" role="alert" style={{width: "55%"}}>
             {message}
             </div>
             </div>
             }
             </>
         :
-        <div className="alert alert-info" role="alert" style={{textAlign: "center"}}>
+        <div className="alert alert-info" role="alert" style={{textAlign: "center", width: "55%"}}>
             Ready to use...
         </div>
         }
         <div id="button-group">
-            <button style={{marginBottom: "1rem"}} className="btn btn-primary" onClick={() => openPrompt()}>Save to Firebase</button>
-            <br />
-            <button style={{marginBottom: "1rem"}} className="btn btn-secondary" onClick={() => setBoard(Array(64).fill(0))}>Clear Board</button>
+            <button style={{marginLeft: "1rem", marginBottom: "1rem"}} className="btn btn-primary" onClick={() => openPrompt()}>Save to Firebase</button>
+            <button style={{marginLeft: "1rem", marginBottom: "1rem"}} className="btn btn-secondary" onClick={() => setBoard(Array(64).fill(0))}>Clear Board</button>
         </div>
       
       <div style={{textAlign: "center", margintop: "1rem"}}>Emoji Preview (4x4 px per cell)   
@@ -227,9 +227,10 @@ export default function Board() {
         </div>
       </div>
     
-    <div style={{textAlign: "center"}}>
-        <div className="board">
+    <div>
+        <div className='drawing-area'>
             <canvas id="canvas" width="400" height="400" onClick={(e) => handleMouseClick(e)}></canvas>
+        <Colors />
         </div>
     </div>
     </>

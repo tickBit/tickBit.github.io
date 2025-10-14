@@ -18,6 +18,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +49,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
 
-      if (user) setCurrentUser(user.email); else setCurrentUser(null);
+      if (user) {
+        setCurrentUser(user.email);
+        setUser(user);
+      }
+      else setCurrentUser(null);
       
       setLoading(false);
     });
@@ -56,6 +61,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = {
+    user,
     currentUser,
     signup,
     login,

@@ -12,7 +12,7 @@ export default function Colors() {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
-        setDrawColor(parseInt(x / 50));
+        setDrawColor(parseInt(y / 50));
 
         console.log(`Mouse position: (${x}, ${y})`);
     }
@@ -28,20 +28,22 @@ export default function Colors() {
         // draw color selector
         for (let i = 0; i < colors.length; i++) {
             ctx.fillStyle = colors[i];
-            ctx.fillRect(i * cellSize, 0, cellSize, cellSize);
+            ctx.fillRect(0, i * cellSize, cellSize, cellSize);
+            
+            // rectangle around selected color
             if (i === drawColor) {
-                ctx.strokeStyle = '#CCCCFF';
-                ctx.lineWidth = 3;
-                ctx.strokeRect(drawColor * cellSize + 1, 1, cellSize - 2, cellSize - 2);
+                ctx.strokeStyle = '#656580cf';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(1, i * cellSize + 1, cellSize-2, cellSize-2);
             }
         }
-
+        
                 
     }, [colors, drawColor]);
     
   return (
-    <div style={{textAlign: "center", marginBottom: "1rem"}}>
-        <canvas id="canvasCol" width="406" height="56" onClick={(e) => handleMouseClick(e)}></canvas>
+    <div className='drawing-area' style={{marginLeft: "1rem"}}>
+        <canvas id="canvasCol" width="50" height="400" onClick={(e) => handleMouseClick(e)}></canvas>
     </div>
   )
 }
