@@ -25,6 +25,8 @@ export default function Board() {
     console.log('prompt submit:', value.trim());
     
     const name = value.trim().toLowerCase();
+    
+    // limit name to 10 characters
     if (name.length > 10) {
         setIsSuccess(false);
         setMessage("Too long emoji name");
@@ -33,6 +35,7 @@ export default function Board() {
         return;
     }
     
+    // require alphanumeric name
     const regex = /^[a-z0-9]+$/i
     console.log(regex.test(name))
     if (regex.test(name) === false) {
@@ -44,9 +47,10 @@ export default function Board() {
     }
     
     setEmojiName(name);
+    
     if (name !== "") {
       setIsPromptOpen(false);
-      saveToFirebase(name); // pass value directly
+      saveToFirebase(name);
     } else {
       setIsPromptOpen(false);
       setIsSuccess(false);
