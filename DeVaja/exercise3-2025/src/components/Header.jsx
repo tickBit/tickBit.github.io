@@ -33,7 +33,7 @@ function Header() {
                 <Link to="/login" className="text-white">Login</Link>
               </Navbar.Text>
               {" "}
-              <Navbar.Text className="text-white">
+              <Navbar.Text className="text-white" style={{marginLeft: "1rem"}}>
                 <Link to="/signup" className="text-white">Signup</Link>
               </Navbar.Text>
               </div>

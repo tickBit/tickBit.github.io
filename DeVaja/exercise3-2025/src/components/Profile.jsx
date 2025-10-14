@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { updatePassword } from 'firebase/auth';
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { deleteUser } from 'firebase/auth';
 import { db, auth } from '../firebase';
 import { ref, remove, query, orderByChild, equalTo, get } from "firebase/database";
@@ -36,6 +36,27 @@ export default function Profile() {
             setShowAlert(true)
             return
         }
+        
+        const passwordEnteredByUser = currentpw;
+        const credential = EmailAuthProvider.credential(
+            user.email,
+            passwordEnteredByUser
+        );
+
+        reauthenticateWithCredential(user, credential)
+        .then((result) => {
+            //Password entered is correct
+            console.log(result)
+        })
+        .catch((error) => {
+            //Incorrect password or some other error
+            console.log(error)
+            
+            setMessage("The current password was wrong")
+            setIsSuccess(false)
+            setShowAlert(true)
+            return;
+        });
         
         // Call the updatePassword function from AuthContext
         updatePassword(user, newpw)
