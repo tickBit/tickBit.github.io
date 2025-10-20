@@ -6,6 +6,7 @@ import { db, auth } from '../firebase';
 import { ref, remove, query, orderByChild, equalTo, get } from "firebase/database";
 import MyOKPrompt from './MyOKPrompt';
 import MyConfirm from './MyConfirm';
+import Header from './Header';
 
 export default function Profile() {
     
@@ -144,11 +145,11 @@ export default function Profile() {
     
   return (
     <div>
+        <Header />
         <MyOKPrompt isOKPromptOpen={isOKPromptOpen} content={promptContent} />
         <MyConfirm isConfirmOpen={isConfirmOpen} content={promptContent} onConfirm={handleConfirmYes} onCancel={handleConfirmNo} />
         
         <h2 style={{textAlign: "center"}}>Profile</h2>
-        <p style={{textAlign: "center"}}>Logged in as: {currentUser}</p>
         {showAlert && showAlert === true ? <>
             <div style={{textAlign: "center"}}>
             {isSuccess === false ?
