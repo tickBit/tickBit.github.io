@@ -6,7 +6,10 @@ const MyPrompt = ({ isPromptOpen, onClose, content, onSubmit }) => {
  
   const handleSubmit = (e) => {
     e.preventDefault();
-    const value = (e.target.elements['my-emoji-name'].value || '').trim();
+
+    //const value = (e.target.elements['my-emoji-name'].value || '').trim();
+    const value = document.getElementById("my-emoji-name").value.trim();
+    
     onSubmit(value);
   };
   
@@ -25,6 +28,7 @@ const MyPrompt = ({ isPromptOpen, onClose, content, onSubmit }) => {
           <form onSubmit={handleSubmit}>
           <input name="my-emoji-name" id="my-emoji-name" autoFocus />
           <div style={{ marginTop: '1rem' }}>
+            <p>{content.content}</p>
             <button type="submit" className="btn btn-primary">Save</button>
             <button type="button" className="btn btn-secondary" onClick={onClose} style={{ marginLeft: '0.5rem' }}>Cancel</button>
           </div>

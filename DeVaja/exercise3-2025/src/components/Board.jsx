@@ -6,7 +6,6 @@ import { useEmojiNames } from '../contexts/EmojiNamesContext';
 import Colors from './Colors'
 import MyPrompt from './MyPrompt';
 
-
 export default function Board() {
     
     const colors = useMemo(() => ['#010101', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#EEEEFF'], []);
@@ -38,8 +37,8 @@ export default function Board() {
     }
     
     // require alphanumeric name
-    const regex = /^[a-z0-9]+$/i
-    console.log(regex.test(name))
+    const regex = /^[a-z0-9]+$/
+
     if (regex.test(name) === false) {
         setIsSuccess(false);
         setMessage("The name must be alphanumeric");
@@ -50,29 +49,29 @@ export default function Board() {
     
     setEmojiName(name);
     
-    if (name !== "") {
+    if (name !== '') {
       setIsPromptOpen(false);
       saveToFirebase(name);
     } else {
       setIsPromptOpen(false);
       setIsSuccess(false);
-      setMessage("Not saved: user canceled saving");
+      console.log("empty name: "+name)
+      setMessage("Not saved: user canceled saving or emoji name empty");
       setShowAlert(true);
     }
   };
     
-    // Always render the component; Modal will show/hide itself based on isModalOpen
     const closePrompt = () => {
         setIsPromptOpen(false);
     };
     
     const openPrompt = () => {
-        setPromptContent("Give a name to the emoji");
+        setPromptContent({title: "Give a name to the emoji", content: "Name must unique and alphanumeric"});
         setIsPromptOpen(true);
     };
      
     // save board to firebase
-    function saveToFirebase() {
+    function saveToFirebase(emojiName) {
         
         // check, that emoji board is not empty
         if (board.every(cell => cell === 0)) {
@@ -89,6 +88,8 @@ export default function Board() {
             return;
         }
         
+        console.log("name to be saved: "+emojiName);
+        
         // define emoji object
         const emoji = {
             // board as an array
@@ -99,7 +100,7 @@ export default function Board() {
         
         // check, that is emoji.name in emojiNames array
         function checker(name) {
-            return name.trim().toLowerCase() === emoji.name.trim().toLowerCase();
+            return name.trim().toLowerCase() === emoji.name;
         }
         if (emojiNames.some(checker)) {
             setIsSuccess(false);
@@ -236,5 +237,6 @@ export default function Board() {
         </div>
     </div>
     </>
+    
   )
 }

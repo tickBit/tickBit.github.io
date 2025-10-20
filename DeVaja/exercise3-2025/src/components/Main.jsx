@@ -12,8 +12,8 @@ const Main = () => {
   const { currentUser } = useAuth()
     
   return (
-    <DrawColorProvider>
     <EmojiNamesProvider>
+    <DrawColorProvider>
     <div>
         <Header main={false} />
         <div className="mainpage">
@@ -31,8 +31,8 @@ const Main = () => {
         }
         </div>
     </div>
-    </EmojiNamesProvider>
     </DrawColorProvider>
+    </EmojiNamesProvider>
   )
 }
 
