@@ -5,6 +5,7 @@ import { deleteUser } from 'firebase/auth';
 import { db, auth } from '../firebase';
 import { ref, remove, query, orderByChild, equalTo, get } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
+import MyOKPrompt from './MyOKPrompt';
 
 export default function Profile() {
     
@@ -14,10 +15,11 @@ export default function Profile() {
     const [message, setMessage] = React.useState("")
     const [isSuccess, setIsSuccess] = React.useState(false);
     const [showAlert, setShowAlert] = React.useState(false);
-        
-    const navigate = useNavigate()
+    const [isReAuth, setIsReAuth] = React.useState(false);
+    const [isOKPromptOpen, setIsOKPromptOpen] = React.useState(false)
+    const [promptContent, setPromptContent] = React.useState({})
     
-    function changePassword() {
+    async function changePassword() {
         
         let newpw = document.getElementById("newPassword").value.trim()
         let currentpw = document.getElementById("currentPassword").value.trim()
@@ -36,22 +38,27 @@ export default function Profile() {
             setShowAlert(true)
             return
         }
-        
+    
+        setIsReAuth(false);
+            
         const passwordEnteredByUser = currentpw;
         const credential = EmailAuthProvider.credential(
             user.email,
             passwordEnteredByUser
         );
 
-        reauthenticateWithCredential(user, credential)
+        await reauthenticateWithCredential(user, credential)
         .then((result) => {
             //Password entered is correct
+            console.log("result")
             console.log(result)
+            setIsReAuth(true)
         })
         .catch((error) => {
             //Incorrect password or some other error
+            console.log("error")
             console.log(error)
-            
+            setIsReAuth(true)
             setMessage("The current password was wrong")
             setIsSuccess(false)
             setShowAlert(true)
@@ -59,19 +66,30 @@ export default function Profile() {
         });
         
         // Call the updatePassword function from AuthContext
-        updatePassword(user, newpw)
+        await updatePassword(user, newpw)
             .then(() => {
                 setMessage("Password updated successfully.")
                 setIsSuccess(true)
                 setShowAlert(true)
-                setNewPassword(newpw)
-                setCurrentPassword(currentpw)
+                setNewPassword("")
+                setCurrentPassword("")
+                currentpw = ""
+                newpw = ""
+                setCurrentPassword("")
+                setNewPassword("")
+                return
             })
             .catch((error) => {
                 //console.error("Error updating password:", error)
                 setMessage("Failed to update password: " + error.message)
                 setIsSuccess(false)
                 setShowAlert(true)
+                
+                currentpw = ""
+                newpw = ""
+                setCurrentPassword("")
+                setNewPassword("")
+                return;
             })
             
         //navigate("/") // redirect to main page
@@ -98,17 +116,22 @@ export default function Profile() {
         
         const user = auth.currentUser;
         deleteUser(user).then(() => {
-            alert("Account deleted successfully.")
+        
+        setPromptContent({ title: "Your account is deleted", content: "All your emojis are also deleted." })
+        setIsOKPromptOpen(true);
+        
+        
         }).catch((error) => {
             console.error("Error deleting account:", error)
             alert("Failed to delete account: " + error.message)
         });
         
-        navigate("/") // redirect to main page
     }
     
   return (
     <div>
+        <MyOKPrompt isOKPromptOpen={isOKPromptOpen} content={promptContent} />
+        
         <h2 style={{textAlign: "center"}}>Profile</h2>
         <p style={{textAlign: "center"}}>Logged in as: {currentUser}</p>
         {showAlert && showAlert === true ? <>
@@ -137,9 +160,9 @@ export default function Profile() {
         }
         
         <div style={{textAlign: "center", marginTop: "2rem"}}>
-        <input type="password" placeholder='Current password' width="8em" style={{marginTop: "1rem", paddingInline: "4em"}} id="currentPassword" />
+        <input type="password" onChange={() => setShowAlert(false)} placeholder='Current password' width="8em" style={{marginTop: "1rem", paddingInline: "4em"}} id="currentPassword" />
         <br />
-        <input type="password" placeholder='New password' style={{marginTop: "1rem", paddingInline: "4em"}} id="newPassword" />
+        <input type="password" onChange={() => setShowAlert(false)} placeholder='New password' style={{marginTop: "1rem", paddingInline: "4em"}} id="newPassword" />
         <br />
         <button className="btn btn-primary" onClick={() => changePassword()} style={{marginTop: "1rem"}}>Change password</button>
         <hr />
