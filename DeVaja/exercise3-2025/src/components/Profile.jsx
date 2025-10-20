@@ -69,7 +69,34 @@ export default function Profile() {
             //Password entered is correct
             console.log("result")
             console.log(result)
-            setIsReAuth(true)
+            
+            // Call the updatePassword function from AuthContext
+            updatePassword(user, newpw)
+                    .then(() => {
+                        setMessage("Password updated successfully.")
+                        setIsSuccess(true)
+                        setShowAlert(true)
+                        setNewPassword("")
+                        setCurrentPassword("")
+                        currentpw = ""
+                        newpw = ""
+                        setCurrentPassword("")
+                        setNewPassword("")
+                        return
+                    })
+                    .catch((error) => {
+                        //console.error("Error updating password:", error)
+                        setMessage("Failed to update password: " + error.message)
+                        setIsSuccess(false)
+                        setShowAlert(true)
+                        
+                        currentpw = ""
+                        newpw = ""
+                        setCurrentPassword("")
+                        setNewPassword("")
+                        return;
+                    })
+            
         })
         .catch((error) => {
             //Incorrect password or some other error
@@ -81,33 +108,6 @@ export default function Profile() {
             setShowAlert(true)
             return;
         });
-        
-        // Call the updatePassword function from AuthContext
-        await updatePassword(user, newpw)
-            .then(() => {
-                setMessage("Password updated successfully.")
-                setIsSuccess(true)
-                setShowAlert(true)
-                setNewPassword("")
-                setCurrentPassword("")
-                currentpw = ""
-                newpw = ""
-                setCurrentPassword("")
-                setNewPassword("")
-                return
-            })
-            .catch((error) => {
-                //console.error("Error updating password:", error)
-                setMessage("Failed to update password: " + error.message)
-                setIsSuccess(false)
-                setShowAlert(true)
-                
-                currentpw = ""
-                newpw = ""
-                setCurrentPassword("")
-                setNewPassword("")
-                return;
-            })
             
         //navigate("/") // redirect to main page
     }
@@ -145,7 +145,7 @@ export default function Profile() {
     
   return (
     <div>
-        <Header />
+        <Header main={true} />
         <MyOKPrompt isOKPromptOpen={isOKPromptOpen} content={promptContent} />
         <MyConfirm isConfirmOpen={isConfirmOpen} content={promptContent} onConfirm={handleConfirmYes} onCancel={handleConfirmNo} />
         

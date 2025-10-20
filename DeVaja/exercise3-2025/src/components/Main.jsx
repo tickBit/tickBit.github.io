@@ -15,7 +15,7 @@ const Main = () => {
     <DrawColorProvider>
     <EmojiNamesProvider>
     <div>
-        <Header />
+        <Header main={false} />
         <div className="mainpage">
         {currentUser ?
          <div>

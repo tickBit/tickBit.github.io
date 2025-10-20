@@ -4,7 +4,7 @@ import { Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from '../contexts/AuthContext'
 
-function Header() {
+function Header({main = true}) {
   
   const { currentUser, logout } = useAuth()
   
@@ -19,9 +19,15 @@ function Header() {
                 Signed in as: {currentUser}
               </Navbar.Text>
               {" "}
+              {main === false ?
               <Navbar.Text className="text-white" style={{marginLeft: "2rem"}}>
                 <Link to="/profile" className="text-white">Profile</Link>
               </Navbar.Text>
+              :
+              <Navbar.Text className="text-white" style={{marginLeft: "2rem"}}>
+                <Link to="/" className="text-white">Main page</Link>
+              </Navbar.Text>
+              }
               {" "}
               <Navbar.Text>
                 <Link to="/" onClick={logout} className='text-white' style={{marginLeft: "1rem"}}>Logout</Link>
