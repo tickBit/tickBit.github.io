@@ -56,13 +56,16 @@ export default function Board() {
       setIsPromptOpen(false);
       setIsSuccess(false);
       console.log("empty name: "+name)
-      setMessage("Not saved: user canceled saving or emoji name empty");
+      setMessage("Not saved: emoji name empty");
       setShowAlert(true);
     }
   };
     
     const closePrompt = () => {
         setIsPromptOpen(false);
+        setMessage("User canceled saving");
+        setIsSuccess(false);
+        setShowAlert(true);
     };
     
     const openPrompt = () => {
