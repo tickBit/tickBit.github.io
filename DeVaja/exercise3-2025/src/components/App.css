@@ -96,3 +96,23 @@
  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
  z-index: 1500;
 }
+
+.my-confirm {
+ position: fixed;
+ inset: 0;               /* top:0; right:0; bottom:0; left:0; */
+ background-color: rgba(0, 0, 0, 0.5);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 2000;
+}
+.my-confirm-content {
+ border: 1px solid #fff;
+ width: 500px;
+ max-width: calc(100% - 2rem);
+ background-color: #fff;
+ border-radius: 15px;
+ padding: 1rem 1.5rem;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+ z-index: 1500;
+}

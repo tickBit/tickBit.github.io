@@ -21,7 +21,8 @@ export default function Board() {
     const [emojiName, setEmojiName] = useState("");
     
     const [isPromptOpen, setIsPromptOpen] = useState(false)
-        
+    const [promptContent, setPromptContent] = useState({})
+    
     const handlePromptSubmit = (value) => {
     console.log('prompt submit:', value.trim());
     
@@ -66,6 +67,7 @@ export default function Board() {
     };
     
     const openPrompt = () => {
+        setPromptContent("Give a name to the emoji");
         setIsPromptOpen(true);
     };
      
@@ -194,7 +196,7 @@ export default function Board() {
     
   return (
       <>
-        <MyPrompt isPromptOpen={isPromptOpen} onClose={closePrompt} onSubmit={handlePromptSubmit} />
+        <MyPrompt isPromptOpen={isPromptOpen} onClose={closePrompt} content={promptContent} onSubmit={handlePromptSubmit} />
         
         {showAlert === true ? <>
             {isSuccess === false ?

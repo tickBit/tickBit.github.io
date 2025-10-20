@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdClose } from "react-icons/io";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const MyPrompt = ({ isPromptOpen, onClose, onSubmit }) => {
+const MyPrompt = ({ isPromptOpen, onClose, content, onSubmit }) => {
  
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const MyPrompt = ({ isPromptOpen, onClose, onSubmit }) => {
           <div className="exit-icon">
             <IoMdClose size={24} color="#333" onClick={onClose} />
           </div>
-          <h5>Give a name to the emoji</h5>
+          <h5>{content.title}</h5>
           <hr />
           <form onSubmit={handleSubmit}>
           <input name="my-emoji-name" id="my-emoji-name" autoFocus />

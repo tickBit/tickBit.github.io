@@ -4,8 +4,8 @@ import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 
 import { deleteUser } from 'firebase/auth';
 import { db, auth } from '../firebase';
 import { ref, remove, query, orderByChild, equalTo, get } from "firebase/database";
-import { useNavigate } from 'react-router-dom';
 import MyOKPrompt from './MyOKPrompt';
+import MyConfirm from './MyConfirm';
 
 export default function Profile() {
     
@@ -17,8 +17,24 @@ export default function Profile() {
     const [showAlert, setShowAlert] = React.useState(false);
     const [isReAuth, setIsReAuth] = React.useState(false);
     const [isOKPromptOpen, setIsOKPromptOpen] = React.useState(false)
+    const [isConfirmOpen, setIsConfirmOpen] = React.useState(false)
     const [promptContent, setPromptContent] = React.useState({})
     
+    const deleteAccount = () => {
+        setPromptContent({ title: "Confirm", content: "Are you sure you want to delete your account? This action cannot be undone.\nYour emojis will be deleted, too." });
+        setIsConfirmOpen(true);
+    };
+    
+    const handleConfirmYes = async () => {
+        setIsConfirmOpen(false);
+        
+        handleDeleteAccount();
+    };
+
+    const handleConfirmNo = () => {
+        setIsConfirmOpen(false);
+    };
+  
     async function changePassword() {
         
         let newpw = document.getElementById("newPassword").value.trim()
@@ -95,11 +111,7 @@ export default function Profile() {
         //navigate("/") // redirect to main page
     }
     
-    function deleteAccount() {
-    
-        if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.\nYour emojis will be deleted, too")) {
-            return
-        }
+    function handleDeleteAccount() {
         
         // delete user's emojis from database, each emoji under "users" node has author field with user's email
         const emojisRef = ref(db, 'users/');
@@ -123,7 +135,9 @@ export default function Profile() {
         
         }).catch((error) => {
             console.error("Error deleting account:", error)
-            alert("Failed to delete account: " + error.message)
+            
+            setPromptContent({ title: "Failed to delete account", content: "If you didn't get error on deleting emojis,\nthe emojis are deleted, though."});
+            setIsOKPromptOpen(true);
         });
         
     }
@@ -131,6 +145,7 @@ export default function Profile() {
   return (
     <div>
         <MyOKPrompt isOKPromptOpen={isOKPromptOpen} content={promptContent} />
+        <MyConfirm isConfirmOpen={isConfirmOpen} content={promptContent} onConfirm={handleConfirmYes} onCancel={handleConfirmNo} />
         
         <h2 style={{textAlign: "center"}}>Profile</h2>
         <p style={{textAlign: "center"}}>Logged in as: {currentUser}</p>
