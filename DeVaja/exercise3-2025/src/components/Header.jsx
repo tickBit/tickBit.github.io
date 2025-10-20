@@ -9,7 +9,7 @@ function Header({main = true}) {
   const { currentUser, logout } = useAuth()
   
   return (
-    <Navbar fixed="top" className="bg-primary">
+    <Navbar fixed="top" className="bg-primary main-header">
       <Container>
         <Navbar.Brand className="text-white">Create and watch emojis</Navbar.Brand>
         <Navbar.Toggle />
