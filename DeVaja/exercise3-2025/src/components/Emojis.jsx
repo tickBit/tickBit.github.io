@@ -50,7 +50,7 @@ export default function Emojis() {
         setIsError(true);
       }
       
-    }, [names, setEmojiNames]);
+    }, [setEmojiNames]);
 
     return (
       <>
