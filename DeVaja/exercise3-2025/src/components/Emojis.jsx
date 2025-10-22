@@ -1,8 +1,10 @@
 import { useState, useEffect, useMemo } from 'react'
 import { db } from "../firebase";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, query, limitToFirst } from "firebase/database";
 import { useEmojiNames } from '../contexts/EmojiNamesContext';
 import EmojiCanvas from './EmojiCanvas';
+
+const MAX_EMOJIS = 72
 
 export default function Emojis() {
     
@@ -15,8 +17,9 @@ export default function Emojis() {
     const [isError, setIsError] = useState(false);
     
     useEffect(() => {
-      try {  
-        onValue(ref(db, 'users/'), (snapshot) => {
+      try {
+        const q = query(ref(db, 'users/'), limitToFirst(MAX_EMOJIS));  
+        onValue(q, (snapshot) => {
 
             const data = snapshot.val();
             if (!data) {

@@ -6,6 +6,8 @@ import { useEmojiNames } from '../contexts/EmojiNamesContext';
 import Colors from './Colors'
 import MyPrompt from './MyPrompt';
 
+const MAX_EMOJIS = 72;
+
 export default function Board() {
     
     const colors = useMemo(() => ['#010101', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#EEEEFF'], []);
@@ -23,112 +25,121 @@ export default function Board() {
     const [promptContent, setPromptContent] = useState({})
     
     const handlePromptSubmit = (value) => {
-    console.log('prompt submit:', value.trim());
-    
-    const name = value.trim().toLowerCase();
-    
-    // limit name to 10 characters
-    if (name.length > 10) {
-        setIsSuccess(false);
-        setMessage("Too long emoji name");
-        setShowAlert(true);
-        setIsPromptOpen(false);
-        return;
-    }
-    
-    // require alphanumeric name
-    const regex = /^[a-z0-9]+$/
+        console.log('prompt submit:', value.trim());
+        
+        // limit number of emojis to be saved to 72
+        if (emojiNames.length >= MAX_EMOJIS) {
+            setIsSuccess(false)
+            setMessage("Max number of emojis saved!")
+            setShowAlert(true)
+            setIsPromptOpen(false)
+            return
+        }
+        
+        const name = value.trim().toLowerCase();
+        
+        // limit name to 10 characters
+        if (name.length > 10) {
+            setIsSuccess(false);
+            setMessage("Too long emoji name");
+            setShowAlert(true);
+            setIsPromptOpen(false);
+            return;
+        }
+        
+        // require alphanumeric name
+        const regex = /^[a-z0-9]+$/
 
-    if (regex.test(name) === false) {
-        setIsSuccess(false);
-        setMessage("The name must be alphanumeric");
-        setShowAlert(true);
-        setIsPromptOpen(false);
-        return;
-    }
-    
-    setEmojiName(name);
-    
-    if (name !== '') {
-      setIsPromptOpen(false);
-      saveToFirebase(name);
-    } else {
-      setIsPromptOpen(false);
-      setIsSuccess(false);
-      console.log("empty name: "+name)
-      setMessage("Not saved: emoji name empty");
-      setShowAlert(true);
-    }
-  };
-    
-    const closePrompt = () => {
-        setIsPromptOpen(false);
-        setMessage("User canceled saving");
-        setIsSuccess(false);
-        setShowAlert(true);
-    };
-    
-    const openPrompt = () => {
-        setPromptContent({title: "Give a name to the emoji", content: "Name must unique and alphanumeric"});
-        setIsPromptOpen(true);
-    };
-     
-    // save board to firebase
-    function saveToFirebase(emojiName) {
-        
-        // check, that emoji board is not empty
-        if (board.every(cell => cell === 0)) {
+        if (regex.test(name) === false) {
             setIsSuccess(false);
-            setMessage("Emoji board is empty!");
+            setMessage("The name must be alphanumeric");
             setShowAlert(true);
+            setIsPromptOpen(false);
             return;
         }
         
-        if (!auth.currentUser) {
-            setIsSuccess(false);
-            setMessage("You must be logged in to save emoji!");
-            setShowAlert(true);
-            return;
+        setEmojiName(name);
+        
+        if (name !== '') {
+        setIsPromptOpen(false);
+        saveToFirebase(name);
+        } else {
+        setIsPromptOpen(false);
+        setIsSuccess(false);
+        console.log("empty name: "+name)
+        setMessage("Not saved: emoji name empty");
+        setShowAlert(true);
         }
+    };
         
-        console.log("name to be saved: "+emojiName);
-        
-        // define emoji object
-        const emoji = {
-            // board as an array
-            board: Array.from(board),
-            author: auth.currentUser.email,
-            name: emojiName
+        const closePrompt = () => {
+            setIsPromptOpen(false);
+            setMessage("User canceled saving");
+            setIsSuccess(false);
+            setShowAlert(true);
         };
         
-        // check, that is emoji.name in emojiNames array
-        function checker(name) {
-            return name.trim().toLowerCase() === emoji.name;
-        }
-        if (emojiNames.some(checker)) {
-            setIsSuccess(false);
-            setMessage("Emoji name already exists! Please choose a different name.");
-            setShowAlert(true);
-            return;
-        }
+        const openPrompt = () => {
+            setPromptContent({title: "Give a name to the emoji", content: "Name must unique and alphanumeric"});
+            setIsPromptOpen(true);
+        };
         
-        // write to firebase database under "users" node with push
-        const emojiListRef = ref(db, 'users/');
-        const newEmojiRef = push(emojiListRef);
-        set(newEmojiRef, emoji)
-        
-        .then(() => {
-            setIsSuccess(true);
-            setMessage("Emoji saved to Firebase!");
-            setShowAlert(true);
-            setEmojiName("");
-        })
-        .catch((error) => {
-            setIsSuccess(false);
-            setMessage("Error saving emoji: " + error.message);
-            setShowAlert(true);
-            setEmojiName("");
-        });
+    // save board to firebase
+    function saveToFirebase(emojiName) {
+            
+            // check, that emoji board is not empty
+            if (board.every(cell => cell === 0)) {
+                setIsSuccess(false);
+                setMessage("Emoji board is empty!");
+                setShowAlert(true);
+                return;
+            }
+            
+            if (!auth.currentUser) {
+                setIsSuccess(false);
+                setMessage("You must be logged in to save emoji!");
+                setShowAlert(true);
+                return;
+            }
+            
+            console.log("name to be saved: "+emojiName);
+            
+            // define emoji object
+            const emoji = {
+                // board as an array
+                board: Array.from(board),
+                author: auth.currentUser.email,
+                name: emojiName
+            };
+            
+            // check, that is emoji.name in emojiNames array
+            function checker(name) {
+                return name.trim().toLowerCase() === emoji.name;
+            }
+            if (emojiNames.some(checker)) {
+                setIsSuccess(false);
+                setMessage("Emoji name already exists! Please choose a different name.");
+                setShowAlert(true);
+                return;
+            }
+            
+            // write to firebase database under "users" node with push
+            const emojiListRef = ref(db, 'users/');
+            const newEmojiRef = push(emojiListRef);
+            set(newEmojiRef, emoji)
+            
+            .then(() => {
+                setIsSuccess(true);
+                setMessage("Emoji saved to Firebase!");
+                setShowAlert(true);
+                setEmojiName("");
+            })
+            .catch((error) => {
+                setIsSuccess(false);
+                setMessage("Error saving emoji: " + error.message);
+                setShowAlert(true);
+                setEmojiName("");
+            });
         
     }    
             
