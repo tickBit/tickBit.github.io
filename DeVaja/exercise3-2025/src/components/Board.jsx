@@ -26,7 +26,7 @@ export default function Board() {
     
     const handlePromptSubmit = (value) => {
         console.log('prompt submit:', value.trim());
-        
+                
         // limit number of emojis to be saved to 72
         if (emojiNames.length >= MAX_EMOJIS) {
             setIsSuccess(false)
@@ -61,14 +61,13 @@ export default function Board() {
         setEmojiName(name);
         
         if (name !== '') {
-        setIsPromptOpen(false);
-        saveToFirebase(name);
+            setIsPromptOpen(false);
+            saveToFirebase(name);
         } else {
-        setIsPromptOpen(false);
-        setIsSuccess(false);
-        console.log("empty name: "+name)
-        setMessage("Not saved: emoji name empty");
-        setShowAlert(true);
+            setIsPromptOpen(false);
+            setIsSuccess(false);
+            setMessage("Not saved: emoji name empty");
+            setShowAlert(true);
         }
     };
         
@@ -102,7 +101,7 @@ export default function Board() {
                 return;
             }
             
-            console.log("name to be saved: "+emojiName);
+            //console.log("name to be saved: "+emojiName);
             
             // define emoji object
             const emoji = {

@@ -12,38 +12,44 @@ export default function Emojis() {
     // that when saving, the app can check, that each name is unique
     const { setEmojiNames } = useEmojiNames();
     let names = useMemo(() => [], []);
-    
+        
     const [emojis, setEmojis] = useState([]);
     const [isError, setIsError] = useState(false);
     
     useEffect(() => {
+      
       try {
         const q = query(ref(db, 'users/'), limitToFirst(MAX_EMOJIS));  
-        onValue(q, (snapshot) => {
-
+        const unsubscribe = onValue(q, (snapshot) => {
             const data = snapshot.val();
             if (!data) {
               setEmojis([]);
+              setEmojiNames([]);
+              setIsError(false);
               return;
             }
-            
+
             const emojiArr = [];
-              for (let key in data) {
+            const namesLocal = [];
+            for (let key in data) {
                 emojiArr.push({
-                    emoji: data[key]["board"],
-                    name: data[key]["name"]
+                    emoji: data[key].board,
+                    name: data[key].name
                 });
-                names.push(data[key]["name"]);
-                setEmojis(emojiArr);
-        }});
-        
-        setEmojiNames(names);
-        setIsError(false);
-        
+                namesLocal.push(data[key].name);
+            }
+            setEmojis(emojiArr);
+            setEmojiNames(namesLocal);
+            setIsError(false);
+        });
+
+        return () => unsubscribe(); // cleanup
+         
       } catch (error) {
         console.error("Error fetching emojis:", error);
         setIsError(true);
       }
+      
     }, [names, setEmojiNames]);
 
     return (
