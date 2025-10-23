@@ -11,7 +11,6 @@ export default function Emojis() {
     // current emoji names are stored in context so,
     // that when saving, the app can check, that each name is unique
     const { setEmojiNames } = useEmojiNames();
-    let names = useMemo(() => [], []);
         
     const [emojis, setEmojis] = useState([]);
     const [isError, setIsError] = useState(false);
