@@ -1,4 +1,3 @@
-import React from 'react'
 import "./App.css"
 import { DrawColorProvider } from '../contexts/DrawColorContext';
 import { useAuth } from '../contexts/AuthContext'

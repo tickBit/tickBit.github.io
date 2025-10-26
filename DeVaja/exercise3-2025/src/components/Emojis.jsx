@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { db } from "../firebase";
 import { ref, onValue, query, limitToFirst } from "firebase/database";
 import { useEmojiNames } from '../contexts/EmojiNamesContext';

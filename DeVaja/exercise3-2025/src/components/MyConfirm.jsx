@@ -1,4 +1,3 @@
-import React from "react";
 import { IoMdClose } from "react-icons/io";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

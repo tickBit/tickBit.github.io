@@ -85,7 +85,7 @@
  display: flex;
  align-items: center;
  justify-content: center;
- z-index: 2000;
+ z-index: 5500;
 }
 .my-ok-prompt-content {
  border: 1px solid #fff;
@@ -95,7 +95,7 @@
  border-radius: 15px;
  padding: 1rem 1.5rem;
  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
- z-index: 1500;
+ z-index: 5500;
 }
 
 .my-confirm {

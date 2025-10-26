@@ -21,6 +21,10 @@ export default function Profile() {
     const [isConfirmOpen, setIsConfirmOpen] = React.useState(false)
     const [promptContent, setPromptContent] = React.useState({})
     
+    const handleOKClose = () => {
+        setIsOKPromptOpen(false);
+    };
+    
     const deleteAccount = () => {
         setPromptContent({ title: "Confirm", content: "Are you sure you want to delete your account? This action cannot be undone.\nYour emojis will be deleted, too." });
         setIsConfirmOpen(true);
@@ -117,6 +121,7 @@ export default function Profile() {
         // delete user's emojis from database, each emoji under "users" node has author field with user's email
         const emojisRef = ref(db, 'users/');
         const q = query(emojisRef, orderByChild('author'), equalTo(currentUser));
+        
         get(q).then((snapshot) => {
             if (snapshot.exists()) {
                 snapshot.forEach((child) => {
@@ -146,7 +151,11 @@ export default function Profile() {
   return (
     <div>
         <Header main={true} />
-        <MyOKPrompt isOKPromptOpen={isOKPromptOpen} content={promptContent} />
+        <MyOKPrompt 
+                isOpen={isOKPromptOpen}
+                content={promptContent}
+                onClose={handleOKClose}
+            />
         <MyConfirm isConfirmOpen={isConfirmOpen} content={promptContent} onConfirm={handleConfirmYes} onCancel={handleConfirmNo} />
         
         <h2 style={{textAlign: "center"}}>Profile</h2>
