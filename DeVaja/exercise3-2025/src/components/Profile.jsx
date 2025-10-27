@@ -4,6 +4,7 @@ import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 
 import { deleteUser } from 'firebase/auth';
 import { db, auth } from '../firebase';
 import { ref, remove, query, orderByChild, equalTo, get } from "firebase/database";
+import { useNavigate } from 'react-router-dom';
 import MyOKPrompt from './MyOKPrompt';
 import MyConfirm from './MyConfirm';
 import Header from './Header';
@@ -20,6 +21,8 @@ export default function Profile() {
     const [isOKPromptOpen, setIsOKPromptOpen] = React.useState(false)
     const [isConfirmOpen, setIsConfirmOpen] = React.useState(false)
     const [promptContent, setPromptContent] = React.useState({})
+    
+    const navigate = useNavigate();
     
     const handleOKClose = () => {
         setIsOKPromptOpen(false);
@@ -113,40 +116,38 @@ export default function Profile() {
             return;
         });
             
-        //navigate("/") // redirect to main page
+        // navigate("/") // redirect to main page
     }
     
-    function handleDeleteAccount() {
-        
-        // delete user's emojis from database, each emoji under "users" node has author field with user's email
-        const emojisRef = ref(db, 'users/');
-        const q = query(emojisRef, orderByChild('author'), equalTo(currentUser));
-        
-        get(q).then((snapshot) => {
-            if (snapshot.exists()) {
-                snapshot.forEach((child) => {
-                remove(ref(db, `users/${child.key}`)); // Only remove this emoji
-            });
+const handleDeleteAccount = async () => {
+  try {
+    const userEmail = currentUser;
+    console.log("Deleting account for:", userEmail);
+    // 1. Poista kaikki tämän käyttäjän emojit 'author' emailin perusteella:
+    const usersSnap = await get(ref(db, 'users'));
+    if (usersSnap.exists()) {
+        const removals = [];
+        usersSnap.forEach(child => {
+        const val = child.val();
+        if (val && val.author === userEmail) {
+            removals.push(remove(ref(db, `users/${child.key}`)));
         }
-        }).catch((error) => {
-            console.error("Error deleting user's emojis:", error);
-        });
-        
-        const user = auth.currentUser;
-        deleteUser(user).then(() => {
-        
-        setPromptContent({ title: "Your account is deleted", content: "All your emojis are also deleted." })
-        setIsOKPromptOpen(true);
-        
-        
-        }).catch((error) => {
-            console.error("Error deleting account:", error)
-            
-            setPromptContent({ title: "Failed to delete account", content: "If you didn't get error on deleting emojis,\nthe emojis are deleted, though."});
-            setIsOKPromptOpen(true);
-        });
-        
+    });
+    await Promise.all(removals);
     }
+
+
+    // 2. Poista auth-tunnus
+    await deleteUser(user);
+
+    setPromptContent({ title: "Account deleted", content: "All your emojis are also deleted." });
+    setIsOKPromptOpen(true);
+//    navigate("/");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
     
   return (
     <div>
