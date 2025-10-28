@@ -2,9 +2,8 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { deleteUser } from 'firebase/auth';
-import { db, auth } from '../firebase';
-import { ref, remove, query, orderByChild, equalTo, get } from "firebase/database";
-import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase';
+import { ref, remove, get } from "firebase/database";
 import MyOKPrompt from './MyOKPrompt';
 import MyConfirm from './MyConfirm';
 import Header from './Header';
@@ -21,9 +20,7 @@ export default function Profile() {
     const [isOKPromptOpen, setIsOKPromptOpen] = React.useState(false)
     const [isConfirmOpen, setIsConfirmOpen] = React.useState(false)
     const [promptContent, setPromptContent] = React.useState({})
-    
-    const navigate = useNavigate();
-    
+        
     const handleOKClose = () => {
         setIsOKPromptOpen(false);
     };
@@ -122,8 +119,8 @@ export default function Profile() {
 const handleDeleteAccount = async () => {
   try {
     const userEmail = currentUser;
-    console.log("Deleting account for:", userEmail);
-    // 1. Poista kaikki tämän käyttäjän emojit 'author' emailin perusteella:
+
+    // Remove user's data according to author's email
     const usersSnap = await get(ref(db, 'users'));
     if (usersSnap.exists()) {
         const removals = [];
@@ -137,7 +134,7 @@ const handleDeleteAccount = async () => {
     }
 
 
-    // 2. Poista auth-tunnus
+    // remove auth
     await deleteUser(user);
 
     setPromptContent({ title: "Account deleted", content: "All your emojis are also deleted." });
