@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 *.log
-database.rules.json
+
