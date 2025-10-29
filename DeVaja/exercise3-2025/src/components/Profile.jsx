@@ -8,7 +8,6 @@ import { Card, Container } from 'react-bootstrap';
 import MyOKPrompt from './MyOKPrompt';
 import MyConfirm from './MyConfirm';
 import Header from './Header';
-import ForgotPassword from './ForgotPassword';
 
 export default function Profile() {
     
@@ -205,7 +204,6 @@ const handleDeleteAccount = async () => {
         </div>
         }
         
-        <ForgotPassword />
         <hr />
         <Container style={{width: "30rem"}}>
         <Card>

@@ -9,12 +9,12 @@ export default function Colors() {
     // handle mouse move
     function handleMouseClick(e) {
         const rect = e.target.getBoundingClientRect();
-        const x = e.clientX - rect.left;
+        //const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
         setDrawColor(parseInt(y / 50));
 
-        console.log(`Mouse position: (${x}, ${y})`);
+        //console.log(`Mouse position: (${x}, ${y})`);
     }
     
     // draw board on canvas

@@ -25,7 +25,7 @@ export default function Board() {
     const [promptContent, setPromptContent] = useState({})
     
     const handlePromptSubmit = (value) => {
-        console.log('prompt submit:', value.trim());
+        //console.log('prompt submit:', value.trim());
                 
         // limit number of emojis to be saved to 72
         if (emojiNames.length >= MAX_EMOJIS) {
