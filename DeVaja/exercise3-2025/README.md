@@ -1,7 +1,3 @@
 # Emoji Editor II
 
-**under construction**
-
-- start frontend: `npm start`
-- start Firebase emulator: `firebase emulators:start`
-
+Deployed to cloud. The URL is a secret at the moment :-)
