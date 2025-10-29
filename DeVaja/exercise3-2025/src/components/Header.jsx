@@ -12,6 +12,7 @@ function Header({main = true}) {
     <Navbar fixed="top" className="bg-primary main-header">
       <Container>
         <Navbar.Brand className="text-white">Create and watch emojis</Navbar.Brand>
+        <Navbar.Text className="text-white">This is only an exercise</Navbar.Text>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           {currentUser ? <div>
