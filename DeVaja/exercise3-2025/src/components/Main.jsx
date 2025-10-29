@@ -25,7 +25,9 @@ const Main = () => {
           </div>
           :
           <> 
-          <p>Please log in to use the emoji editor.</p>
+          <img src="emojititle.jpg" alt="Emoji Editor" style={{display: "block", marginLeft: "auto", marginRight: "auto"}} />
+          <br />
+          <p style={{textAlign: "center"}}>Please log in to use the emoji editor.</p>
           </>
         }
         </div>
