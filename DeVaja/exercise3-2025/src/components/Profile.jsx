@@ -133,6 +133,7 @@ export default function Profile() {
         // clear input fields
         document.getElementById("currentPassword").value = ""
         document.getElementById("newPassword").value = ""
+        document.getElementById("newPassword2").value = ""
         
         // scroll to top
         window.scrollTo(0, 0);
