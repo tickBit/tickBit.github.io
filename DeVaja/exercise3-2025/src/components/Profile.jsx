@@ -4,9 +4,11 @@ import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 
 import { deleteUser } from 'firebase/auth';
 import { db } from '../firebase';
 import { ref, remove, get } from "firebase/database";
+import { Card, Container } from 'react-bootstrap';
 import MyOKPrompt from './MyOKPrompt';
 import MyConfirm from './MyConfirm';
 import Header from './Header';
+import ForgotPassword from './ForgotPassword';
 
 export default function Profile() {
     
@@ -44,12 +46,13 @@ export default function Profile() {
         
         let newpw = document.getElementById("newPassword").value.trim()
         let currentpw = document.getElementById("currentPassword").value.trim()
+        let newpw2 = document.getElementById("newPassword2").value.trim()
         
         if (newpw.length < 6) {
             setMessage("Password should be at least 6 characters long.")
             setIsSuccess(false)
             setShowAlert(true)
-            console.log(newpassword);
+            window.scrollTo(0, 0);
             return
         }
         
@@ -57,9 +60,19 @@ export default function Profile() {
             setMessage("New password must be different from current password.")
             setIsSuccess(false)
             setShowAlert(true)
+            window.scrollTo(0, 0);
             return
         }
     
+        if (newpw !== newpw2) {
+            setMessage("New passwords do not match.")
+            setIsSuccess(false)
+            setShowAlert(true)
+            
+            window.scrollTo(0, 0);
+            return
+        }
+        
         setIsReAuth(false);
             
         const passwordEnteredByUser = currentpw;
@@ -86,6 +99,7 @@ export default function Profile() {
                         newpw = ""
                         setCurrentPassword("")
                         setNewPassword("")
+                        window.scrollTo(0, 0);
                         return
                     })
                     .catch((error) => {
@@ -98,6 +112,7 @@ export default function Profile() {
                         newpw = ""
                         setCurrentPassword("")
                         setNewPassword("")
+                        window.scrollTo(0, 0);
                         return;
                     })
             
@@ -114,6 +129,13 @@ export default function Profile() {
         });
             
         // navigate("/") // redirect to main page
+        
+        // clear input fields
+        document.getElementById("currentPassword").value = ""
+        document.getElementById("newPassword").value = ""
+        
+        // scroll to top
+        window.scrollTo(0, 0);
     }
     
 const handleDeleteAccount = async () => {
@@ -147,7 +169,7 @@ const handleDeleteAccount = async () => {
 
     
   return (
-    <div>
+    <>
         <Header main={true} />
         <MyOKPrompt 
                 isOpen={isOKPromptOpen}
@@ -182,15 +204,26 @@ const handleDeleteAccount = async () => {
         </div>
         }
         
-        <div style={{textAlign: "center", marginTop: "2rem"}}>
-        <input type="password" onChange={() => setShowAlert(false)} placeholder='Current password' width="8em" style={{marginTop: "1rem", paddingInline: "4em"}} id="currentPassword" />
-        <br />
-        <input type="password" onChange={() => setShowAlert(false)} placeholder='New password' style={{marginTop: "1rem", paddingInline: "4em"}} id="newPassword" />
-        <br />
-        <button className="btn btn-primary" onClick={() => changePassword()} style={{marginTop: "1rem"}}>Change password</button>
+        <ForgotPassword />
         <hr />
-        <button className="btn btn-danger" style={{marginTop: "1rem"}} onClick={() => deleteAccount()}>Delete account</button>
+        <Container style={{width: "30rem"}}>
+        <Card>
+        <h2 style={{textAlign: "center"}}>Change password</h2>
+        <Card.Body style={{textAlign: "center"}}>
+            <input type="password" onChange={() => setShowAlert(false)} placeholder='Current password' width="8em" style={{marginTop: "1rem", paddingInline: "4em"}} id="currentPassword" />
+            <br />
+            <input type="password" onChange={() => setShowAlert(false)} placeholder='New password' style={{marginTop: "1rem", paddingInline: "4em"}} id="newPassword" />
+            <br />
+            <input type="password" onChange={() => setShowAlert(false)} placeholder='Re-enter new password' style={{marginTop: "1rem", paddingInline: "4em"}} id="newPassword2" />
+            <br />
+            <button className="btn btn-primary" onClick={() => changePassword()} style={{marginTop: "1rem"}}>Change password</button>
+        </Card.Body>
+        </Card>
+        </Container>
+        <hr />
+        <div style={{textAlign: "center", marginBottom: "4rem" }}>
+            <button className="btn btn-danger" style={{marginTop: "1rem"}} onClick={() => deleteAccount()}>Delete account</button>
         </div>
-    </div>
+    </>
   )
 }
