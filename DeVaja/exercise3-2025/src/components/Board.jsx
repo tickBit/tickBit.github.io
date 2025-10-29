@@ -48,7 +48,7 @@ export default function Board() {
         }
         
         // require alphanumeric name
-        const regex = /^[a-z0-9]+$/
+        const regex = /^[a-z0-9_]+$/
 
         if (regex.test(name) === false) {
             setIsSuccess(false);
