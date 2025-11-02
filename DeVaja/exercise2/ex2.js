@@ -65,8 +65,9 @@ window.onload = function() {
                              
     function printLocalStorage() {
 
-        const items = { ...localStorage };
-
+        // get all items from localStorage
+        items = {...localStorage};
+        
         // put items in ascending order based on the key (timestamp)
         const sortedKeys = Object.keys(items).sort((a, b) => b.localeCompare(a));
         
@@ -88,7 +89,7 @@ window.onload = function() {
         }
                 
         for (const key of sortedKeys) {
-            const item = JSON.parse(items[key]);
+            const item = items[key];
             
             if (item.category === "HTML" && inputHTML.checked) {
                 HTMLquestions.appendChild(document.createTextNode(item.question));
