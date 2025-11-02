@@ -1,135 +1,119 @@
 // De Vaja exercise 2
-
-var category = "";
+// In 2025 version, no events of localStorage are listened anymore    
 
 // wait until the page is loaded
 window.onload = function() {
     
-    // at the beginning of the program the current contents of local storage are read
-    // a bit clumsy code... but it works :-)
-    printTheCurrentLocalStorage();
-
-    window.addEventListener('storage', updateFromStorage, false);
-  
-    // handle save button
-    document.getElementById('save').addEventListener('click', function(e) {
-        e.preventDefault();
-
-        let question = document.getElementById('question').value;
-        category = document.querySelector('input[name="category"]:checked').id;
-
-        let date = Date.now();
-
-        // saving format: key == timestamp, value == category@question
-        window.localStorage.setItem(date, category + "@" + question);
-
-        window.dispatchEvent(new Event("storage"));
-    });
-
-
-    // update question category from local storage
-    function updateFromStorage() {
-
-        let lista;
-
-        switch (category) {
-            case "HTML":
-               lista = document.getElementById("htmlCat");
-               break;
-            case "CSS":
-               lista = document.getElementById("cssCat");
-               break;
-            case "JS":
-                lista = document.getElementById("jsCat");
-                break;
-            }
-
-        // remove old items from current category
-        while (lista.firstChild) {
-            lista.removeChild(lista.firstChild);
-        }
-
-        // get the timestamps, that is: the key, for a category
-        let times = Object.keys(window.localStorage);
-
-        // sort the keys, latest entries first
-        times.sort((a, b) => {
-            return b - a;
-        });
-
-        // insert items...
-        for (let key of times) {
-            let item = localStorage.getItem(key);
-            let el = this.document.createElement("textNode");
-            el.textContent = item.split("@")[1];
-            
-            if (item.split("@")[0] == category) {
-                lista.appendChild(el);
-                lista.appendChild(document.createElement("br"));
-            }
-        }
-    }
-
-    //
-    // handle UI buttons
-    //
+    var inputHTML = document.getElementById("checkboxhtml");
+    var inputCSS = document.getElementById("checkboxcss");
+    var inputJS = document.getElementById("checkboxjs");
     
-    document.getElementById("add").addEventListener("click", function(e) {
+    inputHTML.addEventListener("change", () => {
+        document.getElementById("htmlCat").style.display = inputHTML.checked === true ? "block" : "none";
+    });
+    
+    inputCSS.addEventListener("change", () => {
+        document.getElementById("cssCat").style.display = inputCSS.checked === true ? "block" : "none";
+    });
+    
+    inputJS.addEventListener("change", () => {
+        document.getElementById("jsCat").style.display = inputJS.checked === true ? "block" : "none";
+    });
+    
+    printLocalStorage();
+
+    let formDiv = document.getElementById("the-form");
+    let contentDiv = document.getElementById("content");
+    let addButton = document.getElementById("add");
+    addButton.addEventListener("click", () => {
+        formDiv.style.display = "block";
+        contentDiv.style = "filter: blur(1.1px);"
+        addButton.setAttribute("disabled", true);
+    });
+
+    let cancelButton = document.getElementById("cancel");
+    cancelButton.addEventListener("click", (e) => {
         e.preventDefault();
-        document.getElementById("questions").style.display = "block";
+        
+        addButton.removeAttribute("disabled");
+        formDiv.style.display = "none";
+        contentDiv.style = "filter: blur(0px);"
     });
-
-    document.getElementById("cancel").addEventListener("click", function (e) {
+    
+    let questionForm = document.getElementById("form");
+    questionForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        document.getElementById("questions").style.display = "none";
+        
+        const question = document.getElementById("question");
+        if (question.value.trim() === "") {
+            blinkQuestion();
+            return;
+        }
+        
+        // get category, that is selected
+        const category = document.querySelector('input[name="category"]:checked').id;
+        
+        localStorage.setItem(Date.now(), JSON.stringify({category: category, question: question.value}));
+        form.reset();
+        formDiv.style.display = "none";
+        
+        contentDiv.style = "filter: blur(0px);"
+        
+        addButton.removeAttribute("disabled");
+        printLocalStorage();
     });
+                             
+    function printLocalStorage() {
 
-    let checkbox1 = document.getElementById("checkboxhtml");
-    checkbox1.addEventListener('change', function() {
-        if (this.checked) {
+        const items = { ...localStorage };
+
+        // put items in ascending order based on the key (timestamp)
+        const sortedKeys = Object.keys(items).sort((a, b) => b.localeCompare(a));
+        
+        let HTMLquestions = document.getElementById("htmlCat");
+        let CSSquestions = document.getElementById("cssCat");
+        let JSquestions = document.getElementById("jsCat");
+        
+        // clear previous content
+        while (HTMLquestions.firstChild) {
+            HTMLquestions.removeChild(HTMLquestions.firstChild);
+        }
+        
+        while (CSSquestions.firstChild) {
+            CSSquestions.removeChild(CSSquestions.firstChild);
+        }
+        
+        while (JSquestions.firstChild) {
+            JSquestions.removeChild(JSquestions.firstChild);
+        }
+                
+        for (const key of sortedKeys) {
+            const item = JSON.parse(items[key]);
             
-            document.getElementById("htmlCat").style.display = "block";
-        }
-        else {
-            document.getElementById("htmlCat").style.display = "none";
-        }
-
-    });
-
-    let checkbox2 = document.getElementById("checkboxcss");
-    checkbox2.addEventListener('change', function() {
-        if (this.checked) {
+            if (item.category === "HTML" && inputHTML.checked) {
+                HTMLquestions.appendChild(document.createTextNode(item.question));
+                HTMLquestions.appendChild(document.createElement("br"));
+            }
             
-            document.getElementById("cssCat").style.display = "block";
-        }
-        else {
-            document.getElementById("cssCat").style.display = "none";
-        }
-
-    });
-   
-    let checkbox3 = document.getElementById("checkboxjs");
-    checkbox3.addEventListener('change', function() {
-        if (this.checked) {
+            if (item.category === "CSS" && inputCSS.checked) {
+                CSSquestions.appendChild(document.createTextNode(item.question));
+                CSSquestions.appendChild(document.createElement("br"));
+            }
             
-            document.getElementById("jsCat").style.display = "block";
+            if (item.category === "JS" && inputJS.checked) {
+                JSquestions.appendChild(document.createTextNode(item.question));
+                JSquestions.appendChild(document.createElement("br"));
+            }
         }
-        else {
-            document.getElementById("jsCat").style.display = "none";
-        }
-
-    });
-
-    // category is global variable, below code is a bit clumsy way to update categories at the begining of program
-    function printTheCurrentLocalStorage() {
-
-        category = "HTML";
-        updateFromStorage()
-        category = "CSS";
-        updateFromStorage()
-        category = "JS";
-        updateFromStorage()
-
+        
+        
     }
+    
+    function blinkQuestion() {
+        document.getElementById("question").classList.add("animateDescriptor");
+        document.getElementById("question").addEventListener("animationend",  function() {
+            document.getElementById("question").classList.remove("animateDescriptor");
+        }, false );
+    }
+    
 }
-

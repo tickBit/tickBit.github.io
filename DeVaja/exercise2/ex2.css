@@ -1,6 +1,23 @@
-#questions {
+#the-form {
     display: none;
-    text-align: left;
+    margin: auto;
+    width: 25%;
+    z-index: 3000;
+    position: relative;
+    background-color: antiquewhite;
+    padding: 1em;
+    opacity: 0.9;
+    border-radius: 0.6rem;
+    border-style: solid;
+}
+
+#form {
+    margin: auto;
+    width: 100%;
+}
+
+#categories {
+    text-align: left;    
 }
 
 .btn {
@@ -10,23 +27,25 @@
     padding: 0.5em;
 }
 
+#question-div {
+    text-align: center;
+}
+
 #question {
     text-align: left;
+    width: 80%;
 }
 
 input {
-    vertical-align: middle;
     margin: 0.5em;
 }
 
 #checkboxhtml {
     margin: auto;
-    column-count: top;
 }
 
 #checkboxcss {
     margin: auto;
-    column-count: top;
 }
 
 #checkboxjs {
@@ -35,13 +54,34 @@ input {
 }
 
 .category {
-    margin: top;
     padding-left: 7em;
 }
 
 .grid-container {
+    position: fixed;
+    top: 13em;
     display: grid;
     vertical-align: top;
     width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+}
+
+#content {
+    filter: blur(0px);
+    /* filter: blur(1.1px); */
+}
+
+@keyframes blinker {
+  50% {
+    background-color: red;
+    opacity: 0.2;
+  }
+  100% {
+    background-color: white;
+    opacity: 1.0;
+  }
+}
+
+.animateDescriptor {    
+  animation: blinker 1.0s;  
 }
