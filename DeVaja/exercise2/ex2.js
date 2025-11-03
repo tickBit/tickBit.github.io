@@ -89,7 +89,7 @@ window.onload = function() {
         }
                 
         for (const key of sortedKeys) {
-            const item = items[key];
+            const item = JSON.parse(items[key]);
             
             if (item.category === "HTML" && inputHTML.checked) {
                 HTMLquestions.appendChild(document.createTextNode(item.question));
