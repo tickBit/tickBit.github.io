@@ -28,14 +28,14 @@ window.onload = function() {
     addButton.addEventListener("click", () => {
         formDiv.style.display = "block";
         contentDiv.style = "filter: blur(1.1px);"
-        addButton.setAttribute("disabled", true);
+        //addButton.setAttribute("disabled", true);
     });
 
     let cancelButton = document.getElementById("cancel");
     cancelButton.addEventListener("click", (e) => {
         e.preventDefault();
         
-        addButton.removeAttribute("disabled");
+        //addButton.removeAttribute("disabled");
         formDiv.style.display = "none";
         contentDiv.style = "filter: blur(0px);"
     });
@@ -59,7 +59,7 @@ window.onload = function() {
         
         contentDiv.style = "filter: blur(0px);"
         
-        addButton.removeAttribute("disabled");
+        //addButton.removeAttribute("disabled");
         printLocalStorage();
     });
                              
