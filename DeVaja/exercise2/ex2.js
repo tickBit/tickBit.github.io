@@ -10,14 +10,17 @@ window.onload = function() {
     
     inputHTML.addEventListener("change", () => {
         document.getElementById("htmlCat").style.display = inputHTML.checked === true ? "block" : "none";
+        printLocalStorage();
     });
     
     inputCSS.addEventListener("change", () => {
         document.getElementById("cssCat").style.display = inputCSS.checked === true ? "block" : "none";
+        printLocalStorage();
     });
     
     inputJS.addEventListener("change", () => {
         document.getElementById("jsCat").style.display = inputJS.checked === true ? "block" : "none";
+        printLocalStorage();    
     });
     
     printLocalStorage();
