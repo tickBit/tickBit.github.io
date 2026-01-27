@@ -16,32 +16,32 @@ function Header({main = true}) {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           {currentUser ? <div>
-              <Navbar.Text className="text-white">
+              <Navbar.Text className="text-white mx-2">
                 Signed in as: {currentUser}
               </Navbar.Text>
-              {" "}
+
               {main === false ?
-              <Navbar.Text className="text-white" style={{marginLeft: "2rem"}}>
-                <Link to="/profile" className="text-white">Profile</Link>
+              <Navbar.Text className="text-white mx-2">
+                <Link to="/profile" className="text-white mx-2">Profile</Link>
               </Navbar.Text>
               :
-              <Navbar.Text className="text-white" style={{marginLeft: "2rem"}}>
-                <Link to="/" className="text-white">Main page</Link>
+              <Navbar.Text className="text-white mx-2">
+                <Link to="/" className="text-white mx-2">Main page</Link>
               </Navbar.Text>
               }
-              {" "}
+
               <Navbar.Text>
-                <Link to="/" onClick={logout} className='text-white' style={{marginLeft: "1rem"}}>Logout</Link>
+                <Link to="/" onClick={logout} className='text-white mx-2'>Logout</Link>
               </Navbar.Text>
               </div>
               :
               <div>
               <Navbar.Text>
-                <Link to="/login" className="text-white">Login</Link>
+                <Link to="/login" className="text-white mx-2">Login</Link>
               </Navbar.Text>
-              {" "}
-              <Navbar.Text className="text-white" style={{marginLeft: "1rem"}}>
-                <Link to="/signup" className="text-white">Signup</Link>
+
+              <Navbar.Text className="text-white mx-2">
+                <Link to="/signup" className="text-white mx-2">Signup</Link>
               </Navbar.Text>
               </div>
           }
