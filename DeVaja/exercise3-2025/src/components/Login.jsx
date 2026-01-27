@@ -2,6 +2,7 @@ import { useRef, useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
+import Header from "./Header"
 
 export default function Login() {
   const emailRef = useRef()
@@ -27,7 +28,9 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <>
+    <Header main={false} />
+    <div className="d-flex justify-content-center" style={{ minHeight: "100vh", marginTop: "4rem" }}>
     <Container style={{width: "30rem"}}>
       <Card>
         <Card.Body>
@@ -57,5 +60,6 @@ export default function Login() {
       </div>
       </Container>
     </div>
+    </>
   )
 }

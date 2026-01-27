@@ -7,6 +7,9 @@ import { useAuth } from '../contexts/AuthContext'
 function Header({main = true}) {
   
   const { currentUser, logout } = useAuth()
+
+  const login_ = window.location.pathname === '/login';
+  const signup_ = window.location.pathname === '/signup';  
   
   return (
     <Navbar fixed="top" className="bg-primary main-header">
@@ -35,16 +38,27 @@ function Header({main = true}) {
               </Navbar.Text>
               </div>
               :
+              <>
+              {login_ || signup_ ? <div>
+                <Navbar.Text className="text-white mx-2">
+                  <Link to="/" className="text-white mx-2">Home</Link>
+                </Navbar.Text>
+               </div>
+               
+               :
+              
               <div>
               <Navbar.Text>
                 <Link to="/login" className="text-white mx-2">Login</Link>
               </Navbar.Text>
-
+              
               <Navbar.Text className="text-white mx-2">
                 <Link to="/signup" className="text-white mx-2">Signup</Link>
               </Navbar.Text>
               </div>
-          }
+            }
+              </>
+            }
         </Navbar.Collapse>
       </Container>
     </Navbar>
