@@ -24,11 +24,11 @@ function Header({main = true}) {
               </Navbar.Text>
 
               {main === false ?
-              <Navbar.Text className="text-white mx-2">
+              <Navbar.Text>
                 <Link to="/profile" className="text-white mx-2">Profile</Link>
               </Navbar.Text>
               :
-              <Navbar.Text className="text-white mx-2">
+              <Navbar.Text>
                 <Link to="/" className="text-white mx-2">Main page</Link>
               </Navbar.Text>
               }
@@ -40,7 +40,7 @@ function Header({main = true}) {
               :
               <>
               {login_ || signup_ ? <div>
-                <Navbar.Text className="text-white mx-2">
+                <Navbar.Text>
                   <Link to="/" className="text-white mx-2">Home</Link>
                 </Navbar.Text>
                </div>
@@ -52,7 +52,7 @@ function Header({main = true}) {
                 <Link to="/login" className="text-white mx-2">Login</Link>
               </Navbar.Text>
               
-              <Navbar.Text className="text-white mx-2">
+              <Navbar.Text>
                 <Link to="/signup" className="text-white mx-2">Signup</Link>
               </Navbar.Text>
               </div>
