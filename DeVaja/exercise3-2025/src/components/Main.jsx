@@ -28,6 +28,7 @@ const Main = () => {
           <img src="emojititle.jpg" alt="Emoji Editor" style={{display: "block", marginLeft: "auto", marginRight: "auto"}} />
           <br />
           <p style={{textAlign: "center"}}>Please log in to use the emoji editor.</p>
+          <p style={{textAlign: "center"}}>If you register to use the app, you can delete your account and your emojis will be deleted, too.</p>
           </>
         }
         </div>
